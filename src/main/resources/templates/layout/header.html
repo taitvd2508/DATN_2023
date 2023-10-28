@@ -1,0 +1,185 @@
+<div class="preloader-wrapper">
+	<div class="preloader"></div>
+</div>
+<!-- NAV1 - START -->
+<nav class="secondary-nav border-bottom-dark text-white"
+	style="background-color: rgb(237, 0, 0); font-weight: 500; height: 56px">
+	<div class="container">
+		<div class="row py-2">
+			<div class="col-lg-2 logo">
+				<a th:href="@{|/home|}"> <img th:src="@{|/images/main2.png|}" alt="logo"
+					class="w-75">
+				</a>
+			</div>
+			<div class="col-lg-5 search">
+				<div class="input-group">
+					<input type="text" class="form-control bg-white"
+						style="height: 40px"
+						placeholder="Nhập tên laptop, phụ kiện... cần tìm">
+					<button class="btn btn-dark mb-4 px-4">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</div>
+			<div class="col-lg-5 col-sm-12 user-items">
+				<ul class="d-flex justify-content-end list-unstyled">
+					<li>
+						<!-- Button trigger modal --> 
+						<a type="button" data-bs-toggle="modal" data-bs-target="#Login"><i class="icon icon-user"></i> <span>Đăng nhập</span></a> <!-- Modal -->
+						<div th:replace="/security/login.html"></div> <!-- NHÚNG FORM LOGIN -->
+					</li>
+					<li><a th:href="@{||}"> <i
+							class="icon icon-shopping-cart"></i> <span>Giỏ hàng</span>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</nav>
+<!-- NAV1 - END -->
+<!-- NAV2 - START -->
+<nav class="sticky-top navbar navbar-expand-lg navbar-dark bg-dark">
+	<div class="container-fluid d-flex justify-content-between">
+		<div class="row">
+			<div class="col-lg-12 col-sm-12">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      				<span class="navbar-toggler-icon"></span>
+    			</button>
+				<div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item me-2"><a class="nav-link active text-white" aria-current="page" th:href="@{|/home|}"><i class="bi bi-house-check"></i> Home</a></li>
+						<li class="nav-item dropdown me-2"> 
+							<a th:href="@{|#|}" class="nav-link px-3 text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-laptop"></i> Laptop</a>
+							<ul class="dropdown-menu mega-menu dropdown-menu-dark">
+								<div class="row m-auto">
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Thương hiệu</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop|}">Tất cả</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?brand=Asus|}">Asus</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?brand=Acer|}">Acer</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?brand=MSI|}">MSI</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?brand=Lenovo|}">Lenovo</a></li>
+									</div>
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Thương hiệu</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?brand=Dell|}">Dell</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?brand=HP|}">HP</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?brand=Gigabyte|}">Gigabyte</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/laptop?brand=Apple|}">Apple(Macbook)</a></li>
+									</div>
+									<div class="col-md-4">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Mức giá</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Dưới 20 triệu</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Từ 20 đến 25 triệu</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Từ 25 đến 30 triệu</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Trên 30 triệu</a></li>
+									</div>
+								</div>
+							</ul>
+						</li>
+						<li class="nav-item dropdown me-2"> 
+							<a th:href="@{|#|}" class="nav-link px-3 text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-cpu"></i> Linh kiện</a>
+							<ul class="dropdown-menu mega-menu dropdown-menu-dark mx-auto">
+								<div class="row m-auto">
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">VGA - Card màn hình</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">RTX Ada 4090</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">RTX Ada 4080</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">RTX Ada 4070 Ti</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">RTX Ada 4070</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">NVIDIA Quadro</a></li>
+									</div>
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">VGA - Card màn hình</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">RTX Ampere 3060</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">RTX Ampere 3050</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">RTX Ampere 2060</a></li>	
+										<li><a class="dropdown-item" th:href="@{|#|}">GTX 1650</a></li>	
+										<li><a class="dropdown-item" th:href="@{|#|}">AMD Radeon RX</a></li>	
+									</div>
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">CPU - Intel</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Intel Core i9</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Intel Core i7</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Intel Core i5</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Intel Core i3</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Intel Xeon</a></li>
+									</div>
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">CPU - AMD</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">AMD Ryzen 9</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">AMD Ryzen 7</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">AMD Ryzen 5</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">AMD Ryzen 3</a></li>
+									</div>
+								</div>
+							</ul>
+						</li>
+						<li class="nav-item dropdown me-2"> 
+							<a th:href="@{|#|}" class="nav-link px-3 text-white dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-headphones"></i> Phụ kiện</a>
+							<ul class="dropdown-menu mega-menu dropdown-menu-dark mx-auto">
+								<div class="row m-auto">
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Tai nghe</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Logitech</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">HyperX</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Razer</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Sony</a></li>	
+										<li><a class="dropdown-item" th:href="@{|#|}">Dare-U</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Rapoo</a></li>
+									</div>
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Thẻ nhớ - USB</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Sandisk</a></li>	
+									</div>
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Chuột - Lót chuột</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Logitech</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">HyperX</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Razer</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Asus</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Dare-U</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Rapoo</a></li>
+									</div>
+									<div class="col-md-3">
+										<li>
+											<h4 class="px-3 text-danger fw-bold">Bàn phím</h4>
+										</li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Akko</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Logitech</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Asus</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Razer</a></li>
+										<li><a class="dropdown-item" th:href="@{|#|}">Leopold</a></li>
+									</div>
+								</div>
+							</ul>
+						</li>
+						<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|#|}"><i
+								class="fa fa-television"></i> Màn hình</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
+<!-- NAV2 - END -->

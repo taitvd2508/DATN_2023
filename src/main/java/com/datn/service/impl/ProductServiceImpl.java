@@ -3,6 +3,8 @@ package com.datn.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.datn.model.Product;
@@ -29,6 +31,18 @@ public class ProductServiceImpl implements ProductService {
 	public List<Product> find8Products() {
 		// TODO Auto-generated method stub
 		return productDAO.find8Products();
+	}
+
+	@Override
+	public Page<Product> findPageByProductModelName(String productmodel_name, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return productDAO.findPageByProductModelName(productmodel_name, pageable);
+	}
+
+	@Override
+	public Page<Product> search(String product_name, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return productDAO.search(product_name, pageable);
 	}
 
 }

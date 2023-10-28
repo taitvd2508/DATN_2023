@@ -1,0 +1,38 @@
+<div class="modal fade text-dark" id="Login" tabindex="-1" aria-labelledby="LoginModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="LoginModalLabel">Đăng Nhập</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form action="login">
+					<div class="mb-2">
+						<label for="username" class="col-form-label">Username:</label> <input
+							type="text" class="form-control" id="username" name="username">
+					</div>
+					<div class="mb-2">
+						<label for="password" class="col-form-label">Password:</label> <input
+							type="password" class="form-control" id="password"
+							name="password">
+					</div>
+					<div class="d-flex justify-content-between mb-2">
+						<div class="form-check">
+							<input type="checkbox" class="form-check-input" id="remember" style="margin-top: 12px"> 
+							<label class="form-check-label" for="remember">Ghi nhớ ?</label>
+						</div>
+						<div class="register">
+							<a href="#" class="text-primary"><i class="icon icon-user"></i> <span>Đăng ký tài khoản ?</span></a> <!-- Modal -->
+						</div>
+					</div>
+					<div class="row" style="margin: 0 1px -50px 1px">
+						<button class="btn btn-success">Đăng Nhập</button>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer mt-5">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

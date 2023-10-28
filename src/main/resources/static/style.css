@@ -1,12 +1,4 @@
 @charset "UTF-8";
-/*
-Theme Name: Ultras
-Theme URI: https://templatesjungle.com/
-Author: TemplatesJungle
-Author URI: https://templatesjungle.com/
-Description: Ultras is specially designed product packaged for eCommerce store websites.
-Version: 1.1
-*/
 
 /*--------------------------------------------------------------
 This is main CSS file that contains custom style rules used in this template
@@ -134,8 +126,8 @@ CSS STRUCTURE:
 
 /* Fonts */
 :root {
-    --body-font           : "Inter", sans-serif;
-    --heading-font        : "Inter", sans-serif;
+    --body-font           : "Roboto", sans-serif;
+    --heading-font        : "Roboto", sans-serif;
 }
 
 
@@ -157,7 +149,7 @@ body {
   font-family: var(--body-font);
   font-size: 18px;
   font-weight: 300;
-  line-height: 2;
+  /*line-height: 2;*/
   color: var(--accent-color);
   margin: 0;
 }
@@ -1602,8 +1594,8 @@ blockquote cite {
 .secondary-nav p {
     margin-bottom: 0;
 }
-@media only screen and (max-width: 768px) {
-    .header-contact, .shipping-purchase{
+@media only screen and (max-width: 990px) {
+    .logo, .search{
       display: none;
     }
 }
@@ -2899,12 +2891,17 @@ section.categories .category-content a{
 	transform: scale(1);
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+/*MEGA MENU 1
+.dropdown-menu {
+	border-radius: 0;
+	border: none;
+	padding: .5em;
+	box-shadow: 0 3px 6px rgba(0,0,0,.23);
+}
 .dropdown-menu ul {
   list-style: none;
   padding: 0;
-}
-.dropdown-menu.show {
-  display: flex;
 }
 .dropdown-menu li:first-child a {
   font-weight: bold;
@@ -2915,6 +2912,40 @@ section.categories .category-content a{
   color: gray;
   padding: 0.1em 3em;
 }
+@media screen and (min-width: 990px) {
+	.dropdown:hover .dropdown-menu {
+		display: flex;
+	}
+	.dropdown-menu.show {
+  		display: flex;
+	}
+}
+@media screen and (max-width: 989px) {
+	.dropdown-menu.show {
+  		max-height: 60vh;
+  		overflow-y: scroll;
+	}
+}
+*/
+/*MEGA MENU 2 - chia col */
+@media screen and (min-width: 990px) {
+	.dropdown:hover .dropdown-menu {
+		display: flex;
+	}
+	.dropdown-menu.show {
+  		display: flex;
+	}
+}
+@media screen and (min-width: 1000px){
+	.dropdown .mega-menu {
+		width: 1000px;
+		transform: translate3d(-120px, 4px, 0) ! important;
+	}
+	.mega-menu .row {
+		width: 1000px;
+	}
+}
+
 
 .product-store .product-item1 {
     position: relative;
