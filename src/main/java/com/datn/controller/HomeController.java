@@ -51,4 +51,9 @@ public class HomeController {
 		model.addAttribute("linhkien", linhkien);
 		return "home/home";
 	}
+	
+	@RequestMapping("/login")
+	public String login() {
+		return "/security/login";
+	}
 }

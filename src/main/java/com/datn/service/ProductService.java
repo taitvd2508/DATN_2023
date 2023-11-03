@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import com.datn.model.Product;
 
 public interface ProductService {
+	Product findById(Integer id);
 	List<Product> findAll();
 	List<Product> findByProductModelName(String productmodel_name);
 	Page<Product> findPageByProductModelName(String productmodel_name, Pageable pageable);

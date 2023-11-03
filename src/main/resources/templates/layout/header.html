@@ -25,8 +25,7 @@
 				<ul class="d-flex justify-content-end list-unstyled">
 					<li>
 						<!-- Button trigger modal --> 
-						<a type="button" data-bs-toggle="modal" data-bs-target="#Login"><i class="icon icon-user"></i> <span>Đăng nhập</span></a> <!-- Modal -->
-						<div th:replace="/security/login.html"></div> <!-- NHÚNG FORM LOGIN -->
+						<a type="button" th:href="@{|/login|}"><i class="icon icon-user"></i> <span>Đăng nhập</span></a> <!-- Modal -->
 					</li>
 					<li><a th:href="@{||}"> <i
 							class="icon icon-shopping-cart"></i> <span>Giỏ hàng</span>

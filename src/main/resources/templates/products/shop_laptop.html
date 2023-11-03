@@ -12,8 +12,8 @@
 							<span class="item"> <a class="text-white" th:href="@{|/home|}">Home /</a> </span>
 							<span class="item text-primary">Shop /</span>
 							<span class="item text-primary">Laptop</span>
-							<th:block th:if="${session.brand_session} != 'Laptop'">
-								<span class="item text-primary">/ [(${session.brand_session})]</span>
+							<th:block th:if="${brandd} != 'Laptop'">
+								<span class="item text-primary">/ [(${brandd})]</span>
 							</th:block>
 						</div>
 					</div>
@@ -24,7 +24,6 @@
 		<div class="shopify-grid padding-large">
 			<div class="container">
 				<div class="row">
-
 					<section id="selling-products" class="col-md-9 product-store">
 						<div class="container">
 							<ul class="tabs list-unstyled">
@@ -39,17 +38,13 @@
 											<div class="card mb-3">
 												<div class="product-item1">
 													<div class="d-flex justify-content-between p-2">
-														<p class="fw-bold mb-0 text-dark"
-															style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical;">[(${lap.product_name})]</p>
-														<!--<div
-											class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
-											style="width: 35px; height: 35px;">
-											<p class="text-white mb-0 small">x4</p>
-										</div>-->
+														<a th:href="@{|/shop/laptop/${lap.id}|}">
+															<p class="fw-bold mb-0 text-dark" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical;">[(${lap.product_name})]</p>
+														</a>
 													</div>
-													<img th:src="@{|/images/${lap.product_img1}|}"
-														class="card-img-top w-100" style="height: 260px"
-														alt="Laptop" />
+													<a th:href="@{|/shop/laptop/${lap.id}|}">
+														<img th:src="@{|/images/${lap.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="Laptop" />
+													</a>
 													<div class="card-body">
 														<!--  
 										<div class="d-flex justify-content-between">
@@ -64,8 +59,7 @@
 														<div class="d-flex justify-content-between mb-3">
 															<h5 class="mb-0">Giá sản phẩm</h5>
 															<h5 class="text-dark mb-0">
-																[(${#numbers.formatDecimal(lap.product_price, 3,'POINT',
-																0, 'COMMA')})]<sup>đ</sup>
+																[(${#numbers.formatDecimal(lap.product_price, 3,'POINT', 0, 'COMMA')})]<sup>đ</sup>
 															</h5>
 														</div>
 
@@ -79,9 +73,11 @@
 													</div>
 													<div class="cart-concern">
 														<ul class="list-unstyled">
-															<li><a
-																class="btn btn-danger btn-lg text-white ps-2 pe-2"><i
-																	class="fa fa-cart-plus"></i> Thêm vào giỏ</a></li>
+															<li>
+																<a class="btn btn-danger btn-lg text-white ps-2 pe-2" th:attr="ng-click=@{|cart.add(${lap.id})|}">
+																	<i class="fa fa-cart-plus"></i> Thêm vào giỏ
+																</a>
+															</li>
 														</ul>
 													</div>
 												</div>
@@ -145,19 +141,19 @@
                     			</div>
                     			<ul class="col-6 pagination pagination-lg justify-content-center">
                         			<li class="page-item">
-                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/laptop?trang=0&keywords=${session.keywords}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/search?trang=0&keywords=${session.keywords}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
                       				</li>
                         			<li class="page-item">
-                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/laptop?trang=${laptop.number-1}&keywords=${session.keywords}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/search?trang=${laptop.number-1}&keywords=${session.keywords}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
                         			</li>
                         			<li class="page-item">
           								<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 fw-bold bg-light-grey disabled_a text-danger" href="#">[(${laptop.number+1})]/[(${laptop.totalPages})]</a>   
                         			</li>
                         			<li class="page-item">
-                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == laptop.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/laptop?trang=${laptop.number+1}&keywords=${session.keywords}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == laptop.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/search?trang=${laptop.number+1}&keywords=${session.keywords}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
                         			</li>
                         			<li class="page-item">
-                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/laptop?trang=${laptop.totalPages-1}&keywords=${session.keywords}|}"><i class="fa fa-angle-double-right"></i></a>
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/search?trang=${laptop.totalPages-1}&keywords=${session.keywords}|}"><i class="fa fa-angle-double-right"></i></a>
                         			</li>
                     			</ul>
                 			</div> <!-- end button page -->
@@ -169,8 +165,8 @@
 						<div class="sidebar">
 							<div class="widgets widget-menu">
 								<div class="widget-search-bar">
-									<form th:action="@{|/shop/search|}" role="search" method="get" class="d-flex">
-										<input name="keywords" class="search-field" placeholder="Search" type="text">
+									<form th:action="@{|/shop/search|}" role="search" method="POST" class="d-flex">
+										<input th:value="${session.keywords}" name="keywords" class="search-field" placeholder="Search" type="text">
 										<button class="btn btn-dark">
 											<i class="icon icon-search"></i>
 										</button>

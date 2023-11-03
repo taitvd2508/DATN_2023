@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -33,11 +34,6 @@ public class ShopController {
 	@Autowired
 	SessionService session;
 	
-	@RequestMapping("")
-	public String shop(Model model) {
-		return "products/shop";
-	}
-	
 	@RequestMapping("/laptop")
 	public String shop_laptop(Model model, @RequestParam("trang") Optional<Integer> trang, @RequestParam("brand") Optional<String> brand) {
 		Pageable pageable = PageRequest.of(trang.orElse(0), 9);
@@ -49,13 +45,39 @@ public class ShopController {
 		return "products/shop_laptop";
 	}
 	
-	@RequestMapping("search")
+	// CHI TIẾT LAPTOP
+	@RequestMapping("/laptop/{id}")
+	public String laptop_detail(Model model, @PathVariable("id") Integer id) {
+		Product product = productService.findById(id);
+		model.addAttribute("product", product);
+		return "products/single-product";
+	}
+	
+	@RequestMapping("/linhkien")
+	public String shop_linhkien(Model model, @RequestParam("trang") Optional<Integer> trang, @RequestParam("brand") Optional<String> brand) {
+		Pageable pageable = PageRequest.of(trang.orElse(0), 9);
+		Page<Product> linhkien = productService.findPageByProductModelName(brand.orElse("Linh Kiện"), pageable);
+		model.addAttribute("linhkien", linhkien);
+		List<ProductBrand> productBrands = productBrandService.findAllBrandLinhKien();
+		model.addAttribute("productBrands", productBrands);
+		model.addAttribute("brandd", brand.orElse("Linh Kiện"));
+		return "products/shop_linhkien";
+	}
+	// CHI TIẾT LINHKIEN
+	@RequestMapping("/linhkien/{id}")
+	public String linhkien_detail(Model model, @PathVariable("id") Integer id, @RequestParam("type") Optional<String> type) {
+		Product product = productService.findById(id);
+		model.addAttribute("product", product);
+		return "products/single-product";
+	}
+	
+	@RequestMapping("/search")
 	public String search(Model model, @RequestParam("keywords") Optional<String> keyword, @RequestParam("trang") Optional<Integer> trang) {
 		String keywords = keyword.orElse(session.get("keywords","")); // nếu keyword ban đầu chưa có thì gán = rỗng
-		session.set("keywords", keywords); // set keyword = 
+		session.set("keywords", keywords); // set keyword = keywords
 		Pageable pageable = PageRequest.of(trang.orElse(0), 9);
-		Page<Product> laptop = productService.search(keywords, pageable);
-		model.addAttribute("laptop", laptop);
-		return "products/shop_laptop";
+		Page<Product> searchProducts = productService.search(keywords, pageable);
+		model.addAttribute("searchProducts", searchProducts);
+		return "products/shop";
 	}
 }
