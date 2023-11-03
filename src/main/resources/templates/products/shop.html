@@ -31,14 +31,27 @@
 											<div class="card mb-3">
 												<div class="product-item1">
 													<div class="d-flex justify-content-between p-2">
-														<a th:href="@{|/shop/product_detail/${s.id}|}">
+													<th:block th:if="${s.productModel.productType.id == 1}">
+														<a th:href="@{|/shop/laptop/${s.id}|}">
 															<p class="fw-bold mb-0 text-dark" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical;">[(${s.product_name})]</p>
 														</a>
+													</th:block>
+													<th:block th:if="${s.productModel.productType.id == 2}">
+														<a th:href="@{|/shop/linhkien/${s.id}|}">
+															<p class="fw-bold mb-0 text-dark" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical;">[(${s.product_name})]</p>
+														</a>
+													</th:block>
 													</div>
-													
-													<a th:href="@{|/shop/product_detail/${s.id}|}">
-														<img th:src="@{|/images/${s.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="Product" />
-													</a>
+													<th:block th:if="${s.productModel.productType.id == 1}">
+														<a th:href="@{|/shop/laptop/${s.id}|}">
+															<img th:src="@{|/images/${s.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="Product" />
+														</a>
+													</th:block>
+													<th:block th:if="${s.productModel.productType.id == 2}">
+														<a th:href="@{|/shop/linhkien/${s.id}|}">
+															<img th:src="@{|/images/${s.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="Product" />
+														</a>	
+													</th:block>
 													<div class="card-body">
 													<!--  
 													<div class="d-flex justify-content-between">

@@ -23,13 +23,22 @@
 			</div>
 			<div class="col-lg-5 col-sm-12 user-items">
 				<ul class="d-flex justify-content-end list-unstyled">
-					<li>
-						<!-- Button trigger modal --> 
-						<a type="button" th:href="@{|/login|}"><i class="icon icon-user"></i> <span>Đăng nhập</span></a> <!-- Modal -->
-					</li>
-					<li><a th:href="@{||}"> <i
-							class="icon icon-shopping-cart"></i> <span>Giỏ hàng</span>
-					</a></li>
+					<th:block th:unless="${#request.remoteUser}"> <!-- Nếu chưa đăng nhập -->
+						<li>
+							<a type="button" th:href="@{|/login|}"><i class="icon icon-user"></i> <span>Đăng nhập</span></a> <!-- Modal -->
+						</li>
+						<li>
+							<a th:href="@{|cart|}"> <i class="fa fa-shopping-cart"></i> <span>Giỏ hàng</span></a>
+						</li>
+					</th:block>
+					<th:block th:if="${#request.remoteUser}"> <!-- Nếu đã đăng nhập -->
+						<li>
+							<a class="" th:href="@{|/logoff|}"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
+						</li>
+						<li>
+							<a th:href="@{|cart|}"> <i class="fa fa-shopping-cart"></i> <span>Giỏ hàng</span></a>
+						</li>
+					</th:block>
 				</ul>
 			</div>
 		</div>
@@ -110,20 +119,20 @@
 										<li>
 											<h4 class="px-3 text-danger fw-bold">CPU - Intel</h4>
 										</li>
-										<li><a class="dropdown-item" th:href="@{|#|}">Intel Core i9</a></li>
-										<li><a class="dropdown-item" th:href="@{|#|}">Intel Core i7</a></li>
-										<li><a class="dropdown-item" th:href="@{|#|}">Intel Core i5</a></li>
-										<li><a class="dropdown-item" th:href="@{|#|}">Intel Core i3</a></li>
-										<li><a class="dropdown-item" th:href="@{|#|}">Intel Xeon</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=Intel Core i9|}">Intel Core i9</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=Intel Core i7|}">Intel Core i7</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=Intel Core i5|}">Intel Core i5</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=Intel Core i3|}">Intel Core i3</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=Intel Xeon|}">Intel Xeon</a></li>
 									</div>
 									<div class="col-md-3">
 										<li>
 											<h4 class="px-3 text-danger fw-bold">CPU - AMD</h4>
 										</li>
-										<li><a class="dropdown-item" th:href="@{|#|}">AMD Ryzen 9</a></li>
-										<li><a class="dropdown-item" th:href="@{|#|}">AMD Ryzen 7</a></li>
-										<li><a class="dropdown-item" th:href="@{|#|}">AMD Ryzen 5</a></li>
-										<li><a class="dropdown-item" th:href="@{|#|}">AMD Ryzen 3</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=AMD Ryzen 9|}">AMD Ryzen 9</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=AMD Ryzen 7|}">AMD Ryzen 7</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=AMD Ryzen 5|}">AMD Ryzen 5</a></li>
+										<li><a class="dropdown-item" th:href="@{|/shop/search?keywords=AMD Ryzen 3|}">AMD Ryzen 3</a></li>
 									</div>
 								</div>
 							</ul>
@@ -173,8 +182,12 @@
 								</div>
 							</ul>
 						</li>
-						<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|#|}"><i
-								class="fa fa-television"></i> Màn hình</a></li>
+						<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|#|}"><i class="fa fa-television"></i> Màn hình</a></li>
+						<th:block th:if="${#request.remoteUser}"> <!-- Nếu đã đăng nhập -->
+						<th:block th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAF')}"> <!-- Nếu là admin hoặc staf thì mới hiện -->
+							<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|/admin/index|}"><i class="bi bi-person-fill-lock"></i> <span>Administration</span></a></li>
+						</th:block>
+						</th:block>
 					</ul>
 				</div>
 			</div>
