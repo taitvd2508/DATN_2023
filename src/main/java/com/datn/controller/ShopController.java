@@ -2,9 +2,8 @@ package com.datn.controller;
 
 
 import java.util.List;
-import java.util.Optional;
 
-import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,13 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.datn.model.Product;
 import com.datn.model.ProductBrand;
 import com.datn.service.ProductBrandService;
-import com.datn.service.ProductModelService;
 import com.datn.service.ProductService;
 import com.datn.service.SessionService;
 
 
 @Controller
-@RequestMapping("/shop")
 public class ShopController {
 	@Autowired
 	ProductService productService;
@@ -34,7 +31,7 @@ public class ShopController {
 	@Autowired
 	SessionService session;
 	
-	@RequestMapping("/laptop")
+	@RequestMapping("/shop/laptop")
 	public String shop_laptop(Model model, @RequestParam("trang") Optional<Integer> trang, @RequestParam("brand") Optional<String> brand) {
 		Pageable pageable = PageRequest.of(trang.orElse(0), 9);
 		Page<Product> laptop = productService.findPageByProductModelName(brand.orElse("Laptop"), pageable);
@@ -46,14 +43,14 @@ public class ShopController {
 	}
 	
 	// CHI TIẾT LAPTOP
-	@RequestMapping("/laptop/{id}")
+	@RequestMapping("/shop/laptop/{id}")
 	public String laptop_detail(Model model, @PathVariable("id") Integer id) {
 		Product product = productService.findById(id);
 		model.addAttribute("product", product);
 		return "products/single-product";
 	}
 	
-	@RequestMapping("/linhkien")
+	@RequestMapping("/shop/linhkien")
 	public String shop_linhkien(Model model, @RequestParam("trang") Optional<Integer> trang, @RequestParam("brand") Optional<String> brand) {
 		Pageable pageable = PageRequest.of(trang.orElse(0), 9);
 		Page<Product> linhkien = productService.findPageByProductModelName(brand.orElse("Linh Kiện"), pageable);
@@ -64,14 +61,14 @@ public class ShopController {
 		return "products/shop_linhkien";
 	}
 	// CHI TIẾT LINHKIEN
-	@RequestMapping("/linhkien/{id}")
+	@RequestMapping("/shop/linhkien/{id}")
 	public String linhkien_detail(Model model, @PathVariable("id") Integer id, @RequestParam("type") Optional<String> type) {
 		Product product = productService.findById(id);
 		model.addAttribute("product", product);
 		return "products/single-product";
 	}
 	
-	@RequestMapping("/search")
+	@RequestMapping("/shop/search")
 	public String search(Model model, @RequestParam("keywords") Optional<String> keyword, @RequestParam("trang") Optional<Integer> trang) {
 		String keywords = keyword.orElse(session.get("keywords","")); // nếu keyword ban đầu chưa có thì gán = rỗng
 		session.set("keywords", keywords); // set keyword = keywords

@@ -28,7 +28,7 @@
 							<a type="button" th:href="@{|/login|}"><i class="icon icon-user"></i> <span>Đăng nhập</span></a> <!-- Modal -->
 						</li>
 						<li>
-							<a th:href="@{|cart|}"> <i class="fa fa-shopping-cart"></i> <span>Giỏ hàng</span></a>
+							<a th:href="@{|/cart|}"> <i class="fa fa-shopping-cart"></i> <span>Giỏ hàng <sup>({{cart.count}})</sup></span></a>
 						</li>
 					</th:block>
 					<th:block th:if="${#request.remoteUser}"> <!-- Nếu đã đăng nhập -->
@@ -36,7 +36,7 @@
 							<a class="" th:href="@{|/logoff|}"><i class="fa fa-sign-out"></i> <span>Logout</span></a>
 						</li>
 						<li>
-							<a th:href="@{|cart|}"> <i class="fa fa-shopping-cart"></i> <span>Giỏ hàng</span></a>
+							<a th:href="@{|/cart|}"> <i class="fa fa-shopping-cart"></i> <span>Giỏ hàng</span></a>
 						</li>
 					</th:block>
 				</ul>
@@ -184,9 +184,23 @@
 						</li>
 						<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|#|}"><i class="fa fa-television"></i> Màn hình</a></li>
 						<th:block th:if="${#request.remoteUser}"> <!-- Nếu đã đăng nhập -->
+							<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|#|}"><span>||</span></a></li>
+							<li class="nav-item dropdown me-2">
+							<a class="nav-link px-3 text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-user-circle-o"></i> Tài khoản</a>
+								<ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+									<li><a class="dropdown-item" th:href="@{|/profile|}">Thông tin cá nhân</a></li>
+									<li><a class="dropdown-item" th:href="@{|/order/list|}">Đơn hàng của bạn</a></li>
+									<li><hr class="dropdown-divider"></li>
+									<li><a class="dropdown-item" th:href="@{|/forgotPassword|}">Quên mật khẩu</a></li>
+									<li><a class="dropdown-item" th:href="@{|/changePassword|}">Đổi mật khẩu</a></li>
+								</ul>
+							</li>
 						<th:block th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAF')}"> <!-- Nếu là admin hoặc staf thì mới hiện -->
 							<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|/admin/index|}"><i class="bi bi-person-fill-lock"></i> <span>Administration</span></a></li>
 						</th:block>
+						</th:block>
+						<th:block th:unless="${#request.remoteUser}"> <!-- Nếu chưa đăng nhập -->
+							<li class="nav-item me-2"><a class="nav-link text-white" th:href="@{|/orderGuest/list|}"><i class="bi bi-bag-check"></i> <span>Kiểm tra đơn hàng</span></a></li>
 						</th:block>
 					</ul>
 				</div>

@@ -10,7 +10,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 				this.saveToLocalStorage();
 			}else{ // nếu chưa có thì tải sp từ trên server về thông qua rest
 				$http.get(`/rest/shop/${id}`).then(resp => {
-					alert(id)
+					alert('Đã thêm sản phẩm vào giỏ hàng !');
 					resp.data.qty = 1; // sau khi tải về gán sl = 1;
 					this.items.push(resp.data); // thêm vào ds giỏ hàng (items)
 					this.saveToLocalStorage(); // lưu vào local
@@ -78,6 +78,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 		createDate: new Date(), // lấy ngày hiện tại
 		address: "",
 		phonenumber: "",
+		orderStatus:{id: "CXN"}, // CHỜ XN
 		account: {username: $("#username").val()}, // lấy username trong input có id là username
 		get orderDetails() { // các mặt hàng trong giỏ chuyển sang chi tiết hóa đơn
 			return $scope.cart.items.map(item => {
@@ -94,6 +95,33 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 				alert("Đặt hàng thành công !");
 				$scope.cart.clear(); // xóa giỏ hàng
 				location.href = "/order/detail/" +resp.data.id; // chuyển sang trang chi tiết đơn hàng
+			}).catch(error => {
+				alert("Đặt hàng thất bại !");
+				console.log(error);
+			})
+		}
+	}
+	
+	$scope.orderGuest = {
+		createDate: new Date(), // lấy ngày hiện tại
+		address: "",
+		phonenumber: "",
+		orderStatus:{id: "CXN"}, // CHỜ XN
+		get orderDetailGuests() { // các mặt hàng trong giỏ chuyển sang chi tiết hóa đơn
+			return $scope.cart.items.map(item => {
+				return {
+					product:{id: item.id},
+					price: item.product_price,
+					quantity: item.qty
+				}
+			});
+		},
+ 		dh(){
+			var orderGuest = angular.copy(this); // lấy order hiện tại
+			$http.post("/rest/order/guest", orderGuest).then(resp => { // post order lên đại chỉ
+				alert("Đặt hàng thành công !");
+				$scope.cart.clear(); // xóa giỏ hàng
+				location.href = "/orderGuest/detail/" +resp.data.id; // chuyển sang trang chi tiết đơn hàng
 			}).catch(error => {
 				alert("Đặt hàng thất bại !");
 				console.log(error);

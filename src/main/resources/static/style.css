@@ -337,7 +337,7 @@ dfn, cite, em, i {
   text-align: center;
 }
 /**::after,*/
-.container::after,
+
 .row::after,
 .clearfix::after {
   display: block;
@@ -2934,22 +2934,22 @@ section.categories .category-content a{
 /*MEGA MENU 2 - chia col */
 @media screen and (min-width: 990px) {
 	.dropdown:hover .dropdown-menu {
-		display: flex;
+		display: block;
 	}
 	.dropdown-menu.show {
-  		display: flex;
+  		display: block;
 	}
 }
+
 @media screen and (min-width: 1000px){
 	.dropdown .mega-menu {
 		width: 1000px;
-		transform: translate3d(-120px, 4px, 0) ! important;
+		transform: translate3d(-6.8rem, 0, 1rem);
 	}
 	.mega-menu .row {
 		width: 1000px;
 	}
 }
-
 
 .product-store .product-item1 {
     position: relative;

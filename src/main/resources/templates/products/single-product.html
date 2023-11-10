@@ -82,13 +82,11 @@
 								</div>
 									<p class="ms-3 card-text"><i class="text-danger bi bi-1-circle-fill"></i> <span>[(*{product_gifts})]</span></p>
 							</div>
-                            <form action="" method="GET" class="mb-0">
-                                <div class="col-6 d-grid">
-                                    <button type="submit" class="btn btn-sm text-white" style="background: #E30019" name="submit" value="buy">
-                                       	<h1 class="h3 fw-bold mb-0">Mua Ngay</h1> <p class="mb-0">giao tận nơi hoặc nhận tại cửa hàng</p>
-                                    </button>
-                                </div>
-                            </form>
+                            <div class="col-6 d-grid mb-3">
+                            	<a th:attr="ng-click=@{|cart.add(*{id})|}" class="btn btn-sm text-white" style="background: #E30019">
+                                    <h1 class="h3 fw-bold mb-0">Mua Ngay</h1> <p class="mb-0">giao tận nơi hoặc nhận tại cửa hàng</p>
+                            	</a>
+                            </div>
                             <th:block th:if="*{product_benefits != 	NULL}">
                             <div class="text-dark">
                             	<h1 class="h4 text-dark fw-bold">Quyền lợi: </h1>
@@ -134,11 +132,11 @@
 					<div class="card mb-3">
 						<div class="product-item1">
 							<div class="d-flex justify-content-between p-2">
-									<a th:href="@{|/shop/product_detail/${p.id}|}">
-											<p class="fw-bold mb-0 text-dark" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical;">[(${p.product_name})]</p>
+									<a th:href="@{|/shop/laptop/${p.id}|}">
+											<p class="fw-bold mb-0 text-dark" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 1; display: -webkit-box; -webkit-box-orient: vertical;">[(${p.product_name})]</p>
 									</a>
 							</div>		
-							<a th:href="@{|/shop/product_detail/${p.id}|}">
+							<a th:href="@{|/shop/laptop/${p.id}|}">
 								<img th:src="@{|/images/${p.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="Product" />
 							</a>
 							<div class="card-body">
@@ -159,7 +157,7 @@
 							</div>
 							<div class="cart-concern">
 								<ul class="list-unstyled">
-									<li><a class="btn btn-danger btn-lg text-white ps-2 pe-2"><i class="fa fa-cart-plus"></i> Thêm vào giỏ</a></li>
+									<li><a th:attr="ng-click=@{|cart.add(${p.id})|}" class="btn btn-danger btn-lg text-white ps-2 pe-2"><i class="fa fa-cart-plus"></i> Thêm vào giỏ</a></li>
 								</ul>
 							</div>
 						</div>
