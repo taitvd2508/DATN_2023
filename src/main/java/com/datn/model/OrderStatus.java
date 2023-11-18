@@ -20,7 +20,8 @@ public class OrderStatus implements Serializable{
 	@Id
 	String id;
 	String status_name;
-		
+	Integer stt;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "orderStatus")
 	List<Order> orders;

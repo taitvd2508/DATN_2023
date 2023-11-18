@@ -1,5 +1,9 @@
 package com.datn.service;
 
-public interface ProductTypeService {
+import java.util.List;
 
+import com.datn.model.ProductType;
+
+public interface ProductTypeService {
+	List<ProductType> findAll();
 }

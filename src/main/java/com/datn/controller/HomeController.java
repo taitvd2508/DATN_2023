@@ -27,13 +27,13 @@ public class HomeController {
 	@Autowired
 	ProductService productService;
 	
-	@RequestMapping("/home")
+	@RequestMapping({"/", "/home"})
 	public String abc(Model model, @RequestParam("trang") Optional<Integer> trang, @RequestParam("tranglk") Optional<Integer> tranglk) {
 		List<Product> list = productService.find8Products();
 		model.addAttribute("items", list);
 		Pageable pageable = PageRequest.of(trang.orElse(0), 12);
 		Pageable pageablelk = PageRequest.of(tranglk.orElse(0), 12);
-		Page<Product> all = productService.findPageByProductModelName("Laptop", pageable);
+		Page<Product> all = productService.findPageByProductModelName("Laptop", "Laptop", "", pageable);
 		List<Product> asus = productService.findByProductModelName("Asus");
 		List<Product> acer = productService.findByProductModelName("Acer");
 		List<Product> msi = productService.findByProductModelName("MSI");
@@ -42,7 +42,7 @@ public class HomeController {
 		List<Product> hp = productService.findByProductModelName("HP");
 		List<Product> gigabyte = productService.findByProductModelName("Gigabyte");
 		List<Product> apple = productService.findByProductModelName("Apple");
-		Page<Product> linhkien = productService.findPageByProductModelName("Linh kiện", pageablelk);
+		Page<Product> linhkien = productService.findPageByProductModelName("Linh kiện", "Linh kiện", "", pageablelk);
 		model.addAttribute("all", all);
 		model.addAttribute("asus", asus);
 		model.addAttribute("acer", acer);
@@ -54,5 +54,10 @@ public class HomeController {
 		model.addAttribute("apple", apple);
 		model.addAttribute("linhkien", linhkien);
 		return "home/home";
+	}
+	
+	@RequestMapping({"/admin", "/admin/index"})
+	public String admin() {
+		return "redirect:/admin/index.html";
 	}
 }

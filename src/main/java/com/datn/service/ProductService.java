@@ -11,7 +11,9 @@ public interface ProductService {
 	Product findById(Integer id);
 	List<Product> findAll();
 	List<Product> findByProductModelName(String productmodel_name);
-	Page<Product> findPageByProductModelName(String productmodel_name, Pageable pageable);
+	Page<Product> findPageByProductModelName(String productmodel_name, String typeName, String notes, Pageable pageable);
 	List<Product> find8Products();
-	Page<Product> search(String product_name, Pageable pageable);
+	Page<Product> search(String keywords1, String keywords2, String keywords3, String keywords4, String typeName, Pageable pageable);
+	Page<Product> filterPrice(Double minPrice, Double maxPrice, String typeName, Pageable pageable);
+	Product findTop1Price();
 }

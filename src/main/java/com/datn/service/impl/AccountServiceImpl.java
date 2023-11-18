@@ -1,5 +1,7 @@
 package com.datn.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
@@ -16,5 +18,10 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public Account findById(String username) {
 		return accountDAO.findById(username).get();
+	}
+
+	@Override
+	public List<Account> findAll() {
+		return accountDAO.findAll();
 	}
 }

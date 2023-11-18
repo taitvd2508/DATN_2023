@@ -31,12 +31,12 @@ public class OrderGuestController {
 		return "orderGuest/detail";
 	}
 	
-	@GetMapping("/orderGuest/list")
+	@RequestMapping("/orderGuest/list")
 	public String listCheck(Model model) {
 		return "orderGuest/list";
 	}
 	
-	@PostMapping("/orderGuest/list")
+	@RequestMapping("/orderGuest/listCheck")
 	public String list(Model model, @RequestParam("phonenumber") String phonenumber, @RequestParam("address") String address) {
 		model.addAttribute("phonenumber", phonenumber);
 		model.addAttribute("address", address);
@@ -62,6 +62,7 @@ public class OrderGuestController {
 		orderGuestCancel.setAddress(orderGuest.getAddress());
 		orderGuestCancel.setOrderStatus(orderStatus);
 		orderGuestService.updateSTT(orderGuestCancel);
-		return "redirect:/orderGuest/list";
+		System.out.println(orderGuest.getAddress().stripTrailing());
+		return "redirect:/orderGuest/listCheck?phonenumber="+orderGuest.getPhonenumber()+"&address="+orderGuest.getAddress();
 	}
 }

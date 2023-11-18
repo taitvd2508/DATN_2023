@@ -27,4 +27,10 @@ public class ProductBrandServiceImpl implements ProductBrandService {
 		return productBrandDAO.findAllBrandLinhKien();
 	}
 
+	@Override
+	public List<ProductBrand> findAllBrandManHinh() {
+		// TODO Auto-generated method stub
+		return productBrandDAO.findAllBrandManHinh();
+	}
+
 }

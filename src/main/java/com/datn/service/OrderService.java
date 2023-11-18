@@ -13,5 +13,13 @@ public interface OrderService {
 	
 	public List<Order> findByUsername(String username) ;
 	
+	public List<Order> findAll() ;
+	
 	public Order updateSTT(Order order);
+
+	public void create(Order order);
+
+	public Order update(Order order);
+
+	public void delete(Long id);
 }

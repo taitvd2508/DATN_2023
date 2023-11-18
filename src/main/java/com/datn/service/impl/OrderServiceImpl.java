@@ -44,6 +44,7 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.findById(id).get();
 	}
 	
+	// find đơn hàng theo tên người dùng khi đã đăng nhập
 	public List<Order> findByUsername(String username) {
 		return orderDAO.findByUsername(username);
 	}
@@ -51,5 +52,25 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public Order updateSTT(Order order) {
 		return orderDAO.save(order);
+	}
+
+	@Override
+	public List<Order> findAll() {
+		return orderDAO.findAll();
+	}
+
+	@Override
+	public void create(Order order) {
+		orderDAO.save(order);
+	}
+
+	@Override
+	public Order update(Order order) {
+		return orderDAO.save(order);
+	}
+
+	@Override
+	public void delete(Long id) {
+		orderDAO.deleteById(id);
 	}
 }

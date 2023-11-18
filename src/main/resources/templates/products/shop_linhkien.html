@@ -10,10 +10,7 @@
 						<div class="breadcrumbs">
 							<span class="item"> <a class="text-white" th:href="@{|/home|}">Home /</a> </span>
 							<span class="item text-primary">Shop /</span>
-							<span class="item text-primary">LinhKien</span>
-							<th:block th:if="${brandd} != 'Linh Kiện'">
-								<span class="item text-primary">/ [(${brandd})]</span>
-							</th:block>
+							<span class="item text-primary">Linh kiện</span>
 						</div>
 					</div>
 				</div>
@@ -27,7 +24,7 @@
 						<div class="container">
 							<ul class="tabs list-unstyled">
 								<li class="tab"><a th:href="@{|/shop/linhkien|}">Tất cả</a></li>
-								<li th:each="brand: ${productBrands}" class="tab"><a th:href="@{|/shop/linhkien?brand=${brand.brand_name}|}">[(${brand.brand_name})]</a></li>
+								<li th:each="brand: ${productBrands}" class="tab"><a th:href="@{|/shop/linhkien?modelName=${brand.brand_name}&typeName=${typeName}|}">[(${brand.brand_name})]</a></li>
 							</ul>
 							<div class="tab-content">
 								<div class="active">
@@ -42,7 +39,7 @@
 														</a>
 													</div>
 													<a th:href="@{|/shop/linhkien/${lk.id}|}">
-														<img th:src="@{|/images/${lk.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="LinhKien" />
+														<img th:src="@{|/images/products/${lk.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="LinhKien" />
 													</a>
 													<div class="card-body">
 														<!--  
@@ -83,56 +80,56 @@
 									</div>
                                 </div>
                             </div>
-                            <th:block th:if="${brandd == 'Linh Kiện'}"> <!-- Nếu tồn tại brand == laptop -->
+                            <th:block th:if="${modelName == 'Linh Kiện'}"> <!-- Nếu tồn tại brand == laptop -->
 							<div class="row"> <!-- button page -->
                     			<div class="col-6 my-auto">
 									<p class="h3 text-dark">Showing <b class="text-danger">[(${linhkien.number*9 + 1})]</b> to <b class="text-danger">[(${linhkien.number*9 + linhkien.numberOfElements})]</b> of <b class="text-danger">[(${linhkien.totalElements})]</b> products</p>
                     			</div>
                     			<ul class="col-6 pagination pagination-lg justify-content-center">
                         			<li class="page-item">
-                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/linhkien?trang=0|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/linhkien?trang=0&typeName=${typeName}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
                       				</li>
                         			<li class="page-item">
-                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/linhkien?trang=${linhkien.number-1}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/linhkien?trang=${linhkien.number-1}&typeName=${typeName}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
                         			</li>
                         			<li class="page-item">
           								<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 fw-bold bg-light-grey disabled_a text-danger" href="#">[(${linhkien.number+1})]/[(${linhkien.totalPages})]</a>   
                         			</li>
                         			<li class="page-item">
-                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == linhkien.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/linhkien?trang=${linhkien.number+1}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == linhkien.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/linhkien?trang=${linhkien.number+1}&typeName=${typeName}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
                         			</li>
                         			<li class="page-item">
-                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/linhkien?trang=${linhkien.totalPages-1}|}"><i class="fa fa-angle-double-right"></i></a>
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/linhkien?trang=${linhkien.totalPages-1}&typeName=${typeName}|}"><i class="fa fa-angle-double-right"></i></a>
                         			</li>
                     			</ul>
                 			</div> <!-- end button page -->
                 			</th:block>
-                			<th:block th:if="${brandd != 'Linh Kiện' && brandd != null}"> <!-- Nếu tồn tại brand != linh kiện -->
+                			<th:block th:if="${modelName != 'Linh Kiện' && modelName != null}"> <!-- Nếu tồn tại brand != linh kiện -->
 							<div class="row"> <!-- button page -->
                     			<div class="col-6 my-auto">
 									<p class="h3 text-dark">Showing <b class="text-danger">[(${linhkien.number*9 + 1})]</b> to <b class="text-danger">[(${linhkien.number*9 + linhkien.numberOfElements})]</b> of <b class="text-danger">[(${linhkien.totalElements})]</b> products</p>
                     			</div>
                     			<ul class="col-6 pagination pagination-lg justify-content-center">
                         			<li class="page-item">
-                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/linhkien?trang=0&brand=${brandd}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/linhkien?trang=0&modelName=${modelName}&typeName=${typeName}&pNotes=${notes}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
                       				</li>
                         			<li class="page-item">
-                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/linhkien?trang=${linhkien.number-1}&brand=${brandd}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/linhkien?trang=${linhkien.number-1}&modelName=${modelName}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
                         			</li>
                         			<li class="page-item">
           								<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 fw-bold bg-light-grey disabled_a text-danger" href="#">[(${linhkien.number+1})]/[(${linhkien.totalPages})]</a>   
                         			</li>
                         			<li class="page-item">
-                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == linhkien.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/linhkien?trang=${linhkien.number+1}&brand=${brandd}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == linhkien.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/linhkien?trang=${linhkien.number+1}&modelName=${modelName}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
                         			</li>
                         			<li class="page-item">
-                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/linhkien?trang=${linhkien.totalPages-1}&brand=${brandd}|}"><i class="fa fa-angle-double-right"></i></a>
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/linhkien?trang=${linhkien.totalPages-1}&modelName=${modelName}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-double-right"></i></a>
                         			</li>
                     			</ul>
                 			</div> <!-- end button page -->
                 			</th:block>
-                			<th:block th:if="${session.keywords != '' && brandd == null}"> <!-- Nếu tồn tại keywords -->
-							<div class="row"> <!-- button page -->
+                			<!-- <th:block th:if="${session.keywords != '' && modelName == null}"> Nếu tồn tại keywords
+							<div class="row"> button page 
                     			<div class="col-6 my-auto">
 									<p class="h3 text-dark">Showing <b class="text-danger">[(${linhkien.number*9 + 1})]</b> to <b class="text-danger">[(${linhkien.number*9 + linhkien.numberOfElements})]</b> of <b class="text-danger">[(${linhkien.totalElements})]</b> products</p>
                     			</div>
@@ -141,20 +138,20 @@
                             			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/search?trang=0&keywords=${session.keywords}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
                       				</li>
                         			<li class="page-item">
-                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/search?trang=${linhkien.number-1}&keywords=${session.keywords}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/search?trang=${linhkien.number-1}&keywords=${session.keywords}|}"><i class="fa fa-angle-left"></i></a>
                         			</li>
                         			<li class="page-item">
           								<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 fw-bold bg-light-grey disabled_a text-danger" href="#">[(${linhkien.number+1})]/[(${linhkien.totalPages})]</a>   
                         			</li>
                         			<li class="page-item">
-                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == linhkien.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/search?trang=${linhkien.number+1}&keywords=${session.keywords}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${linhkien.number == linhkien.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/search?trang=${linhkien.number+1}&keywords=${session.keywords}|}"><i class="fa fa-angle-right"></i></a>
                         			</li>
                         			<li class="page-item">
                             			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/search?trang=${linhkien.totalPages-1}&keywords=${session.keywords}|}"><i class="fa fa-angle-double-right"></i></a>
                         			</li>
                     			</ul>
-                			</div> <!-- end button page -->
-                			</th:block>
+                			</div> 
+                			</th:block>-->
 						</div>
 					</section>
 
@@ -173,10 +170,10 @@
 							<div class="widgets widget-price-filter">
 								<h5 class="widget-title">Tìm kiếm theo giá</h5>
 								<ul class="product-tags sidebar-list list-unstyled">
-									<li class="tags-item"><a href="">Dưới 20 triệu</a></li>
-									<li class="tags-item"><a href="">Từ 20 - 25 triệu</a></li>
-									<li class="tags-item"><a href="">Từ 25 - 30 triệu</a></li>
-									<li class="tags-item"><a href="">Trên 30 triệu</a></li>
+									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=0.0&maxPrice=10000000&typeName=${typeName}|}">Dưới 10 triệu</a></li>
+									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=10000000&maxPrice=15000000&typeName=${typeName}|}">Từ 10 - 15 triệu</a></li>
+									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=15000000&maxPrice=25000000&typeName=${typeName}|}">Từ 15 - 25 triệu</a></li>
+									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=25000000&maxPrice=&typeName=${typeName}|}">Trên 25 triệu</a></li> <!-- Maxprice = trống vì nếu trống nó sẽ gán giá của sp có giá lớn nhất -->
 								</ul>
 							</div>
 						</div>

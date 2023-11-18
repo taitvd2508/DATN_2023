@@ -39,7 +39,6 @@ public class OrderGuestServiceImpl implements OrderGuestService {
 
 	@Override
 	public OrderGuest findById(Long id) {
-		// TODO Auto-generated method stub
 		return orderGuestDAO.findById(id).get();
 	}
 
@@ -51,8 +50,28 @@ public class OrderGuestServiceImpl implements OrderGuestService {
 
 	@Override
 	public List<OrderGuest> findByPhonenumberAndAddress(String phonenumber, String address) {
-		// TODO Auto-generated method stub
 		return orderGuestDAO.findByPhonenumberAndAddress(phonenumber, address);
+	}
+
+	@Override
+	public List<OrderGuest> findAll() {
+		return orderGuestDAO.findAll();
+	}
+
+	@Override
+	public void create(OrderGuest orderGuest) {
+		orderGuestDAO.save(orderGuest);
+		
+	}
+
+	@Override
+	public OrderGuest update(OrderGuest orderGuest) {
+		return orderGuestDAO.save(orderGuest);
+	}
+
+	@Override
+	public void delete(Long id) {
+		orderGuestDAO.deleteById(id);
 	}
 	
 	

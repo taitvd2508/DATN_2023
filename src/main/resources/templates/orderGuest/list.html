@@ -13,7 +13,7 @@
 		</div>
 		<!-- Close Title -->
 		<div class="container my-5">
-			<form th:action="@{|/orderGuest/list|}" method="POST" class="m-auto col-6 shadow p-4 my-4">
+			<form th:action="@{|/orderGuest/listCheck|}" method="GET" class="m-auto col-6 shadow p-4 my-4">
 			<p class="text-danger">[(${mess})]</p>
 				<div class="form-group mb-3">
 					<label>PhoneNumber *:</label>
@@ -70,7 +70,7 @@
 		<!-- Close Title -->
 
 		<div class="container my-5">
-			<form th:action="@{|/orderGuest/list|}" method="POST" class="m-auto col-6 shadow p-4 my-4">
+			<form th:action="@{|/orderGuest/listCheck|}" method="GET" class="m-auto col-6 shadow p-4 my-4">
 				<div class="form-group mb-3">
 					<label>PhoneNumber *:</label>
 					<input type="text" name="phonenumber" class="form-control" placeholder="Phone Number ?" minlength="7" maxlength="11" required>

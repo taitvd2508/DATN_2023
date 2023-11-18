@@ -34,21 +34,33 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<Product> findPageByProductModelName(String productmodel_name, Pageable pageable) {
+	public Page<Product> findPageByProductModelName(String productmodel_name, String typeName, String notes, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return productDAO.findPageByProductModelName(productmodel_name, pageable);
+		return productDAO.findPageByProductModelName(productmodel_name, typeName, notes, pageable);
 	}
 
 	@Override
-	public Page<Product> search(String product_name, Pageable pageable) {
+	public Page<Product> search(String keywords1, String keywords2, String keywords3, String keywords4, String typeName, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return productDAO.search(product_name, pageable);
+		return productDAO.search(keywords1, keywords2, keywords3, keywords4, typeName, pageable);
 	}
 
 	@Override
 	public Product findById(Integer id) {
 		// TODO Auto-generated method stub
 		return productDAO.findById(id).get();
+	}
+
+	@Override
+	public Page<Product> filterPrice(Double minPrice, Double maxPrice, String typeName, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return productDAO.filterPrice(minPrice, maxPrice, typeName, pageable);
+	}
+
+	@Override
+	public Product findTop1Price() {
+		// TODO Auto-generated method stub
+		return productDAO.findTop1Price();
 	}
 
 }

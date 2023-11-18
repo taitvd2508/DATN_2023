@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-lg-4 pe-0">
                     <div class="card none mb-3 border-0" style="border-radius: 0px; height: 600px">
-                        <img class="card-img img-fluid" th:src="@{|/images/*{product_img1}|}" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" th:src="@{|/images/products/*{product_img1}|}" alt="Card image cap" id="product-detail">
                     	<div class="row mx-2">
                         <!--Start Controls-->
                         <div class="col-1 align-self-center">
@@ -26,22 +26,22 @@
                                     <div class="row m-1 border">
                                     	<div class="col-3 border-right">
                                             <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{|/images/*{product_img1}|}" alt="Product Image 2">
+                                                <img class="card-img img-fluid" th:src="@{|/images/products/*{product_img1}|}" alt="Product Image 2">
                                             </a>
                                         </div>
                                         <div class="col-3 border-right">
                                             <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{|/images/*{product_img2}|}" alt="Product Image 2">
+                                                <img class="card-img img-fluid" th:src="@{|/images/products/*{product_img2}|}" alt="Product Image 2">
                                             </a>
                                         </div>
                                         <div class="col-3 border-right">
                                             <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{|/images/*{product_img3}|}" alt="Product Image 3">
+                                                <img class="card-img img-fluid" th:src="@{|/images/products/*{product_img3}|}" alt="Product Image 3">
                                             </a>
                                         </div>
                                         <div class="col-3">
                                             <a href="#">
-                                                <img class="card-img img-fluid" th:src="@{|/images/*{product_img4}|}" alt="Product Image 4">
+                                                <img class="card-img img-fluid" th:src="@{|/images/products/*{product_img4}|}" alt="Product Image 4">
                                             </a>
                                         </div>
                                     </div>
@@ -132,13 +132,37 @@
 					<div class="card mb-3">
 						<div class="product-item1">
 							<div class="d-flex justify-content-between p-2">
-									<a th:href="@{|/shop/laptop/${p.id}|}">
-											<p class="fw-bold mb-0 text-dark" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 1; display: -webkit-box; -webkit-box-orient: vertical;">[(${p.product_name})]</p>
-									</a>
-							</div>		
-							<a th:href="@{|/shop/laptop/${p.id}|}">
-								<img th:src="@{|/images/${p.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="Product" />
-							</a>
+									<th:block th:if="${p.productModel.productType.id == 1}"> <!-- Tức là laptop -->
+										<a th:href="@{|/shop/laptop/${p.id}|}">
+											<p class="fw-bold mb-0 text-dark" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical;">[(${p.product_name})]</p>
+										</a>
+									</th:block>
+									<th:block th:if="${p.productModel.productType.id == 2}"> <!-- Tức là linh kiện -->
+										<a th:href="@{|/shop/linhkien/${p.id}|}">
+											<p class="fw-bold mb-0 text-dark" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical;">[(${p.product_name})]</p>
+										</a>
+									</th:block>
+									<th:block th:if="${p.productModel.productType.id == 3}"> <!-- Tức là màn hình -->
+										<a th:href="@{|/shop/manhinh/${p.id}|}">
+											<p class="fw-bold mb-0 text-dark" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 2; display: -webkit-box; -webkit-box-orient: vertical;">[(${p.product_name})]</p>
+										</a>
+									</th:block>
+							</div>	
+							<th:block th:if="${p.productModel.productType.id == 1}"> <!-- Tức là laptop -->	
+								<a th:href="@{|/shop/laptop/${p.id}|}">
+									<img th:src="@{|/images/products/${p.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="Product" />
+								</a>
+							</th:block>
+							<th:block th:if="${p.productModel.productType.id == 2}"> <!-- Tức là linhkien -->	
+								<a th:href="@{|/shop/linhkien/${p.id}|}">
+									<img th:src="@{|/images/products/${p.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="Product" />
+								</a>
+							</th:block>
+							<th:block th:if="${p.productModel.productType.id == 3}"> <!-- Tức là manhinh -->	
+								<a th:href="@{|/shop/manhinh/${p.id}|}">
+									<img th:src="@{|/images/products/${p.product_img1}|}" class="card-img-top w-100" style="height: 260px" alt="Product" />
+								</a>
+							</th:block>
 							<div class="card-body">
 								<div class="d-flex justify-content-between mb-3">
 									<h5 class="mb-0">Giá sản phẩm</h5>

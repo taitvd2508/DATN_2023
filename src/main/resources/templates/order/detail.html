@@ -27,7 +27,7 @@
 		<tbody>
 			<tr th:each="detail : *{orderDetails}" th:object="${detail}" class="align-middle">
 				<td style="padding-left: 8px;">[(*{id})]</td>
-				<td><img th:src="@{|/images/*{product.product_img1}|}" class="img-fluid w-75 mx-auto d-block" style="height:90px"></td>
+				<td><img th:src="@{|/images/products/*{product.product_img1}|}" class="img-fluid w-75 mx-auto d-block" style="height:90px"></td>
 				<td>[(*{product.product_name})]</td>
 				<td>[(*{#numbers.formatDecimal(price, 3,'POINT', 0, 'COMMA')})]</td>
 				<td>[(*{quantity})]</td>
