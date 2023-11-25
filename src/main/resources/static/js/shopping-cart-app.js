@@ -72,6 +72,21 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 		}
 	}
 	
+	$scope.payments = 1;
+	$scope.initialize = function() {
+		// load brands
+		$http.get(`/rest/orderMethod`).then(resp => {
+			$scope.items = resp.data;
+		});
+		$scope.payments = 1;
+	};
+	
+	var pay = 0;
+	$scope.choosePayment = function() {
+		pay = angular.copy($scope.payments);
+	}
+	
+	$scope.initialize(); // load pt thanh toán
 	$scope.cart.loadFromLocalStorage(); // tải lại toàn bộ mặt hàng trong local khi ứng dụng khởi tạo
 	
 	$scope.order = {
@@ -79,6 +94,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 		address: "",
 		phonenumber: "",
 		orderStatus:{id: "CXN"}, // CHỜ XN
+		orderMethod:{id: 1}, // thanh toán khi nhận hàng
 		account: {username: $("#username").val()}, // lấy username trong input có id là username
 		get orderDetails() { // các mặt hàng trong giỏ chuyển sang chi tiết hóa đơn
 			return $scope.cart.items.map(item => {
@@ -90,15 +106,54 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 			});
 		},
  		dh(){
-			var order = angular.copy(this); // lấy order hiện tại
-			$http.post("/rest/order", order).then(resp => { // post order lên đại chỉ
-				alert("Đặt hàng thành công !");
-				$scope.cart.clear(); // xóa giỏ hàng
-				location.href = "/order/detail/" +resp.data.id; // chuyển sang trang chi tiết đơn hàng
-			}).catch(error => {
-				alert("Đặt hàng thất bại !");
-				console.log(error);
-			})
+			if (this.address == null || this.address == undefined || this.address.length <= 0) {
+				alert("Vui lòng nhập địa chỉ giao hàng !")
+			} else if(this.phonenumber == null || this.phonenumber == undefined || this.phonenumber.length <= 7) {
+				alert("Vui lòng nhập số điện thoại !")
+			} else{
+				var order = angular.copy(this); // lấy order hiện tại
+				$http.post("/rest/order", order).then(resp => { // post order lên đại chỉ
+					alert("Đặt hàng thành công !");
+					location.href = "/order/detail/" +resp.data.id; // chuyển sang trang chi tiết đơn hàng
+					$scope.cart.clear(); // xóa giỏ hàng
+				}).catch(error => {
+					alert("Đặt hàng thất bại !");
+					console.log(error);
+				})
+			}
+		}
+	}
+	
+	$scope.orderPaypal = {
+		createDate: new Date(), // lấy ngày hiện tại
+		address: "",
+		phonenumber: "",
+		orderStatus:{id: "CXN"}, // CHỜ XN
+		orderMethod:{id: 2}, // thanh toán Paypal
+		account: {username: $("#username").val()}, // lấy username trong input có id là username
+		get orderDetails() { // các mặt hàng trong giỏ chuyển sang chi tiết hóa đơn
+			return $scope.cart.items.map(item => {
+				return {
+					product:{id: item.id},
+					price: item.product_price,
+					quantity: item.qty
+				}
+			});
+		},
+ 		dh(){
+			if (this.address == null || this.address == undefined || this.address.length <= 0) {
+				alert("Vui lòng nhập địa chỉ giao hàng !")
+			} else if(this.phonenumber == null || this.phonenumber == undefined || this.phonenumber.length <= 7) {
+				alert("Vui lòng nhập số điện thoại !")
+			} else{
+				var order = angular.copy(this); // lấy order hiện tại
+				$http.post("/rest/order", order).then(resp => { // post order lên đại chỉ
+					$scope.cart.clear(); // xóa giỏ hàng
+				}).catch(error => {
+					alert("Đặt hàng thất bại !");
+					console.log(error);
+				})
+			}
 		}
 	}
 	
@@ -107,6 +162,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 		address: "",
 		phonenumber: "",
 		orderStatus:{id: "CXN"}, // CHỜ XN
+		orderMethod:{id: 1}, // thanh toán khi nhận hàng
 		get orderDetailGuests() { // các mặt hàng trong giỏ chuyển sang chi tiết hóa đơn
 			return $scope.cart.items.map(item => {
 				return {
@@ -117,15 +173,53 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 			});
 		},
  		dh(){
+			if (this.address == null || this.address == undefined || this.address.length <= 0) {
+				alert("Vui lòng nhập địa chỉ giao hàng !")
+			} else if(this.phonenumber == null || this.phonenumber == undefined || this.phonenumber.length <= 7) {
+				alert("Vui lòng nhập số điện thoại !")
+			} else{
 			var orderGuest = angular.copy(this); // lấy order hiện tại
 			$http.post("/rest/order/guest", orderGuest).then(resp => { // post order lên đại chỉ
 				alert("Đặt hàng thành công !");
-				$scope.cart.clear(); // xóa giỏ hàng
 				location.href = "/orderGuest/detail/" +resp.data.id; // chuyển sang trang chi tiết đơn hàng
+				$scope.cart.clear(); // xóa giỏ hàng
 			}).catch(error => {
 				alert("Đặt hàng thất bại !");
 				console.log(error);
 			})
+			}
+		}
+	}
+	
+	$scope.orderGuestPaypal = {
+		createDate: new Date(), // lấy ngày hiện tại
+		address: "",
+		phonenumber: "",
+		orderStatus:{id: "CXN"}, // CHỜ XN
+		orderMethod:{id: 2}, // thanh toán paypal
+		get orderDetailGuests() { // các mặt hàng trong giỏ chuyển sang chi tiết hóa đơn
+			return $scope.cart.items.map(item => {
+				return {
+					product:{id: item.id},
+					price: item.product_price,
+					quantity: item.qty
+				}
+			});
+		},
+ 		dh(){
+			if (this.address == null || this.address == undefined || this.address.length <= 0) {
+				alert("Vui lòng nhập địa chỉ giao hàng !")
+			} else if(this.phonenumber == null || this.phonenumber == undefined || this.phonenumber.length <= 7) {
+				alert("Vui lòng nhập số điện thoại !")
+			} else{
+			var orderGuest = angular.copy(this); // lấy order hiện tại
+			$http.post("/rest/order/guest", orderGuest).then(resp => { // post order lên đại chỉ
+				$scope.cart.clear(); // xóa giỏ hàng
+			}).catch(error => {
+				alert("Đặt hàng thất bại !");
+				console.log(error);
+			})
+			}
 		}
 	}
 })

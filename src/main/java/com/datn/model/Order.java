@@ -39,6 +39,10 @@ public class Order implements Serializable{
 	OrderStatus orderStatus;
 	
 	@ManyToOne
+	@JoinColumn(name = "Ordermethod_id")
+	OrderMethod orderMethod;
+	
+	@ManyToOne
 	@JoinColumn(name = "Username") // ten trong SQL
 	Account account; // account trùng với tên đặt bên mappedBy bên Account
 	

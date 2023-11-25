@@ -42,7 +42,7 @@ public class AuthSecurityConfig extends WebSecurityConfigurerAdapter { // file c
 		
 		// Phân quyền sử dụng
 		httpSecurity.authorizeRequests()
-			.antMatchers("/order/**").authenticated() // trang /order/** phải đăng nhập
+			.antMatchers("/order/**", "/changePassword").authenticated() // trang /order/**, changePassword phải đăng nhập
 			.antMatchers("/admin/**").hasAnyRole("STAF","DIRE") // trang /admin/** thì phải STAF Hoặc DIRE mới vào được
 			.antMatchers("/rest/authorities").hasRole("DIRE") // trang phân quyền thì chỉ có DIRE mới được vào
 			.anyRequest().permitAll(); // các trang còn lại thì cho phép vào không cần đăng nhập 

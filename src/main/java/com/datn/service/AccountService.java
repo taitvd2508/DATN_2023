@@ -6,6 +6,10 @@ import com.datn.model.Account;
 
 public interface AccountService {
 	Account findById(String username);
+	
+	Account findByUsername(String username); // giành cho chức năng đăng nhập
 
 	List<Account> findAll();
+	
+	Account create(Account account);
 }

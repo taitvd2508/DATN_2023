@@ -11,6 +11,8 @@ public interface OrderService {
 	
 	public Order findById(Long id) ;
 	
+	Order findFirstByOrderByIdDesc();
+	
 	public List<Order> findByUsername(String username) ;
 	
 	public List<Order> findAll() ;

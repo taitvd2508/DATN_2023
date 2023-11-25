@@ -24,4 +24,14 @@ public class AccountServiceImpl implements AccountService {
 	public List<Account> findAll() {
 		return accountDAO.findAll();
 	}
+
+	@Override
+	public Account create(Account account) {
+		return accountDAO.save(account);
+	}
+
+	@Override
+	public Account findByUsername(String username) {
+		return accountDAO.findByUsername(username);
+	}
 }

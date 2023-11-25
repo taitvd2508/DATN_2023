@@ -27,7 +27,7 @@ public class HomeController {
 	@Autowired
 	ProductService productService;
 	
-	@RequestMapping({"/", "/home"})
+	@RequestMapping({"/home"})
 	public String abc(Model model, @RequestParam("trang") Optional<Integer> trang, @RequestParam("tranglk") Optional<Integer> tranglk) {
 		List<Product> list = productService.find8Products();
 		model.addAttribute("items", list);

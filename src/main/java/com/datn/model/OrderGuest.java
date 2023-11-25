@@ -38,6 +38,10 @@ public class OrderGuest implements Serializable {
 	@JoinColumn(name = "Orderstatus_id")
 	OrderStatus orderStatus;
 	
+	@ManyToOne
+	@JoinColumn(name = "Ordermethod_id")
+	OrderMethod orderMethod;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "orderGuest")
 	List<OrderDetailGuest> orderDetailGuests;

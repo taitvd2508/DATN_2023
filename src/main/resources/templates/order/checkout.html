@@ -11,7 +11,7 @@
 	<!-- Close Title -->
 	
 	<!-- Start CheckInfo Page -->
-	<form class="m-auto col-6 shadow p-4 my-4" name="formcheckout">
+	<div class="m-auto col-6 shadow p-4 my-4" name="formcheckout">
 		<div class="alert alert-info py-3" role="alert">
 			Enter And Check Payment Information - Nhập Và Kiểm Tra Thông Tin Thanh Toán
 		</div>
@@ -25,16 +25,34 @@
 				<input id="username" th:value="${#request.remoteUser}" type="text" class="form-control" readonly/> <!-- USERNAME ĐỂ TRUYỀN QUA BÊN SHOPPING-CART-APP -->
 			</div>
 			<div class="form-group mb-3">
+				<!-- LOAD SELECTBOX METHOD PAYMENT -->
+				<label>Phương thức thanh toán *:</label> 
+				<select class="form-select" ng-model="payments" ng-options="pay.id as pay.method_name for pay in items" ng-change="choosePayment()">
+				</select>
+			</div>
+			<div class="form-group mb-3">
 				<label>OrderDate:</label> 
 				<input value="{{order.createDate | date: 'dd/MM/yyyy'}}" name="createdate" class="form-control" readonly>
 			</div>
+			<div ng-show="payments == 1 || payments != 2">
 			<div class="form-group mb-3">
 				<label>Phone Number *:</label>
-				<input type="text" name="phonenumber" class="form-control" placeholder="Phone Number ? (Required)" ng-model="order.phonenumber" minlength="7" maxlength="11" required>
+				<input type="text" name="phonenumber" class="form-control" placeholder="Phone Number ? (Required)" ng-model="order.phonenumber" minlength="7" maxlength="11" >
 			</div>
 			<div class="form-group mb-3">
 				<label>Address *:</label> 
-				<input type="text" name="address" class="form-control" placeholder="Address ? (Required)" ng-model="order.address" required>
+				<input type="text" name="address" class="form-control" placeholder="Address ? (Required)" ng-model="order.address" >
+			</div>
+			</div>
+			<div ng-show="payments == 2">
+			<div class="form-group mb-3">
+				<label>Phone Number *:</label>
+				<input type="text" name="phonenumber" class="form-control" placeholder="Phone Number ? (Required)" ng-model="orderPaypal.phonenumber" minlength="7" maxlength="11" >
+			</div>
+			<div class="form-group mb-3">
+				<label>Address *:</label> 
+				<input type="text" name="address" class="form-control" placeholder="Address ? (Required)" ng-model="orderPaypal.address" >
+			</div>
 			</div>
 		</div>
 		<hr>
@@ -63,8 +81,19 @@
 				</div>
 			</div> <!-- DIV ROW END -->
 		</div>
-		<button ng-click="order.dh()" class="btn btn-warning py-2 mt-2 fw-bold shadow" style="width:100%; text-shadow: 0 0 3px white;" ng-disabled="formcheckout.phonenumber.$invalid || formcheckout.address.$pristine">ORDER - ĐẶT HÀNG</button>
-	</form>
+		<div class="payment-accordion">
+			<div class="order-button-payment mt-2" ng-show="payments == 1 || payments != 2">
+				<button ng-click="order.dh()" class="col-12 btn btn-warning py-2" ng-disabled="formcheckout.phonenumber.$invalid || formcheckout.address.$pristine"><i class="bi bi-cash"></i> Mua hàng</button>
+			</div>
+			<div ng-show="payments == 2" class="order-button-payment mt-2">
+				<form method="post" th:action="@{|/pay|}" class="mb-0">
+					<input type="text" ng-model="cart.amount" name="price" hidden/>
+					<button type="submit" ng-click="orderPaypal.dh()" class="btn btn-warning col-12 py-2"><i class="bi bi-paypal"></i> Mua hàng</i></button>
+				</form>
+			</div>
+		</div>
+	</div>
+	
 	<!-- Close CheckInfo Page -->
 	</main>
 </body>

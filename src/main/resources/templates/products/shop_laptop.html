@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index.html :: dynamic(~{::main})}"> <!--  thay toàn bộ nd trong tag main vào dynamic(main) ở bên layout/index -->
 <body>
-
 	<main>
-		<section id="banner-web" class="site-banner jarallax min-height300 padding-large" style="background-position: top;">
+		<section id="banner-web-laptop" class="site-banner jarallax min-height300 padding-large" style="background-position: top;">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<h1 class="text-white">Cửa hàng Laptop</h1>
+						<h1 class="text-white" style="text-shadow: 0 0 5px black">Cửa hàng Laptop</h1>
 						<div class="breadcrumbs">
 							<span class="item"> <a class="text-white" th:href="@{|/home|}">Home /</a> </span>
 							<span class="item text-primary">Shop /</span>
@@ -90,19 +89,19 @@
                     			</div>
                     			<ul class="col-6 pagination pagination-lg justify-content-center">
                         			<li class="page-item">
-                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/laptop?trang=0&typeName=${typeName}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/laptop?trang=0&typeName=${typeName}&pNotes=${notes}|}" tabindex="-1"><i class="fa fa-angle-double-left"></i></a>
                       				</li>
                         			<li class="page-item">
-                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/laptop?trang=${laptop.number-1}&typeName=${typeName}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == 0 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/laptop?trang=${laptop.number-1}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-left"></i></a> <!-- Nếu page.number = 0 : tức là trang đầu thì vô hiệu hóa nút  -->
                         			</li>
                         			<li class="page-item">
           								<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 fw-bold bg-light-grey disabled_a text-danger" href="#">[(${laptop.number+1})]/[(${laptop.totalPages})]</a>   
                         			</li>
                         			<li class="page-item">
-                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == laptop.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/laptop?trang=${laptop.number+1}&typeName=${typeName}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
+                            			<a th:class="'page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark ' +${laptop.number == laptop.totalPages-1 ? 'disabled_a text-muted' : ''}" th:href="@{|/shop/laptop?trang=${laptop.number+1}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-right"></i></a> <!-- Nếu page.number = trang cuối : tức là trang cuối thì vô hiệu hóa nút  -->
                         			</li>
                         			<li class="page-item">
-                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/laptop?trang=${laptop.totalPages-1}&typeName=${typeName}|}"><i class="fa fa-angle-double-right"></i></a>
+                            			<a class="page-link rounded-0 shadow-sm border-top-0 border-left-0 text-dark" th:href="@{|/shop/laptop?trang=${laptop.totalPages-1}&typeName=${typeName}&pNotes=${notes}|}"><i class="fa fa-angle-double-right"></i></a>
                         			</li>
                     			</ul>
                 			</div> <!-- end button page -->
@@ -173,12 +172,19 @@
 								</div>
 							</div>
 							<div class="widgets widget-price-filter">
-								<h5 class="widget-title">Tìm kiếm theo giá</h5>
+								<h5 class="widget-title mb-2">Tìm kiếm theo giá</h5>
 								<ul class="product-tags sidebar-list list-unstyled">
 									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=0.0&maxPrice=20000000&typeName=${typeName}|}">Dưới 20 triệu</a></li>
 									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=20000000&maxPrice=25000000&typeName=${typeName}|}">Từ 20 - 25 triệu</a></li>
 									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=25000000&maxPrice=30000000&typeName=${typeName}|}">Từ 25 - 30 triệu</a></li>
 									<li class="tags-item"><a th:href="@{|/shop/filter?minPrice=30000000&maxPrice=&typeName=${typeName}|}">Trên 30 triệu</a></li> <!-- Maxprice = trống vì nếu trống nó sẽ gán giá của sp có giá lớn nhất -->
+								</ul>
+							</div>
+							<div class="widgets widget-inch-filter">
+								<h5 class="widget-title mb-2">Nhu cầu</h5>
+								<ul class="product-tags sidebar-list list-unstyled">
+									<li class="tags-item"><a th:href="@{|/shop/laptop?pNotes=GM&typeName=${typeName}|}">Gaming</a></li>
+									<li class="tags-item"><a th:href="@{|/shop/laptop?pNotes=VP&typeName=${typeName}|}">Văn phòng</a></li>
 								</ul>
 							</div>
 						</div>

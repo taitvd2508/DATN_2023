@@ -73,4 +73,9 @@ public class OrderServiceImpl implements OrderService{
 	public void delete(Long id) {
 		orderDAO.deleteById(id);
 	}
+
+	@Override
+	public Order findFirstByOrderByIdDesc() {
+		return orderDAO.findFirstByOrderByIdDesc();
+	}
 }

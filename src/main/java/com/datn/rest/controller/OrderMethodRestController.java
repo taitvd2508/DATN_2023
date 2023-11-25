@@ -2,25 +2,24 @@ package com.datn.rest.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.datn.model.OrderMethod;
-import com.datn.service.OrderMethodService;
+import com.datn.model.OrderStatus;
+import com.datn.service.OrderStatusService;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/rest/orderMethod")
-public class OrderStatusRestController {
+@RequestMapping("/rest/orderStatuss")
+public class OrderMethodRestController {
 	@Autowired
-	OrderMethodService orderMethodService;
+	OrderStatusService orderStatusService;
 	
 	@GetMapping
-	public List<OrderMethod> findAll(){
-		return orderMethodService.findAll();
+	public List<OrderStatus> findAll(){
+		return orderStatusService.findAll();
 	}
 }
