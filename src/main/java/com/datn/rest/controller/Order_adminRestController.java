@@ -27,7 +27,7 @@ public class Order_adminRestController {
 	// ## ADMIN ## //
 	@GetMapping
 	public List<Order> getAll() {
-		return orderService.findAll();
+		return orderService.findAllIdDESC();
 	}
 	
 	@GetMapping("{id}")
@@ -58,6 +58,7 @@ public class Order_adminRestController {
 		orderNew.setAddress(order.getAddress());
 		orderNew.setOrderStatus(orderStatus);
 		orderNew.setAccount(order.getAccount());
+		orderNew.setOrderMethod(order.getOrderMethod());
 		return orderService.updateSTT(orderNew);
 	}
 	

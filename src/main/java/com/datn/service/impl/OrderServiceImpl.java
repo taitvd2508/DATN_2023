@@ -78,4 +78,9 @@ public class OrderServiceImpl implements OrderService{
 	public Order findFirstByOrderByIdDesc() {
 		return orderDAO.findFirstByOrderByIdDesc();
 	}
+
+	@Override
+	public List<Order> findAllIdDESC() {
+		return orderDAO.findAllIdDESC();
+	}
 }

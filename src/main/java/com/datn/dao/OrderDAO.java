@@ -12,4 +12,7 @@ public interface OrderDAO extends JpaRepository<Order, Long>{
 	List<Order> findByUsername(String username);
 	
 	Order findFirstByOrderByIdDesc(); // tìm order có id mới nhất
+	
+	@Query("SELECT o FROM Order o ORDER BY o.id DESC")
+	List<Order> findAllIdDESC();
 }

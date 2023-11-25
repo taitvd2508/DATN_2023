@@ -28,7 +28,7 @@ public class OrderGuest_adminRestController {
 	// ## ADMIN ## //
 	@GetMapping
 	public List<OrderGuest> getAll() {
-		return orderGuestService.findAll();
+		return orderGuestService.findAllIdDESC();
 	}
 	
 	@GetMapping("{id}")
@@ -58,6 +58,7 @@ public class OrderGuest_adminRestController {
 		orderGuestNew.setPhonenumber(orderGuest.getPhonenumber());
 		orderGuestNew.setAddress(orderGuest.getAddress());
 		orderGuestNew.setOrderStatus(orderStatus);
+		orderGuestNew.setOrderMethod(orderGuest.getOrderMethod());
 		return orderGuestService.updateSTT(orderGuestNew);
 	}
 	

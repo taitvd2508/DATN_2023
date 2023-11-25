@@ -8,10 +8,10 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Username</th>
 						<th>Phonenumber</th>
-						<th>Address</th>
+						<th style="width: 250px">Address</th>
 						<th>CreateDate</th>
+						<th>Payment Method</th>
 						<th>Status</th>
 						<th>Action</th>
 					</tr>
@@ -19,10 +19,11 @@
 				<tbody>
 					<tr ng-repeat="odg in pager.ordersGuest" scope="row">
 						<td class="align-middle">{{odg.id}}</td>
-						<td class="align-middle">{{odg.account.username}}</td>
 						<td class="align-middle">{{odg.phonenumber}}</td>
 						<td class="align-middle">{{odg.address}}</td>
 						<td class="align-middle">{{odg.createDate | date : 'dd-MM-yyyy'}}</td>
+						<td class="align-middle" ng-if="odg.orderMethod.id == 1">Tiền mặt</td>
+						<td class="align-middle" ng-if="odg.orderMethod.id == 2">Paypal</td>
 						<td class="align-middle">
 							<a ng-click="confirm(odg)" class="btn btn-outline-danger fw-bold" ng-if="odg.orderStatus.status_name == 'Chờ xác nhận'"><i class="bi bi-check-square me-1"></i> Xác nhận</a>
 							<span class="text-danger fw-bold" ng-if="odg.orderStatus.status_name != 'Chờ xác nhận'">{{odg.orderStatus.status_name}}</span>
@@ -42,10 +43,10 @@
 				<tfoot>
 					<tr>
 						<th>ID</th>
-						<th>Username</th>
 						<th>Phonenumber</th>
 						<th>Address</th>
 						<th>CreateDate</th>
+						<th>Payment Method</th>
 						<th>Status</th>
 						<th>Action</th>
 					</tr>

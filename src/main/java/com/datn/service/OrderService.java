@@ -17,6 +17,8 @@ public interface OrderService {
 	
 	public List<Order> findAll() ;
 	
+	public List<Order> findAllIdDESC();
+	
 	public Order updateSTT(Order order);
 
 	public void create(Order order);

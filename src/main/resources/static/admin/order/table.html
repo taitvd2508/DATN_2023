@@ -10,8 +10,8 @@
 						<th>ID</th>
 						<th>Username</th>
 						<th>Phonenumber</th>
-						<th>Address</th>
-						<th>CreateDate</th>
+						<th style="width: 250px">Address</th>
+						<th>Payment Method</th>
 						<th>Status</th>
 						<th>Action</th>
 					</tr>
@@ -21,8 +21,9 @@
 						<td class="align-middle">{{od.id}}</td>
 						<td class="align-middle">{{od.account.username}}</td>
 						<td class="align-middle">{{od.phonenumber}}</td>
-						<td class="align-middle">{{od.address}}</td>
-						<td class="align-middle">{{od.createDate | date : 'dd-MM-yyyy'}}</td>
+						<td class="align-middle">{{od.address}}</td>	
+						<td class="align-middle" ng-if="od.orderMethod.id == 1">Tiền mặt</td>
+						<td class="align-middle" ng-if="od.orderMethod.id == 2">Paypal</td>
 						<td class="align-middle">
 							<a ng-click="confirm(od)" class="btn btn-outline-danger fw-bold" ng-if="od.orderStatus.status_name == 'Chờ xác nhận'"><i class="bi bi-check-square me-1"></i> Xác nhận</a>
 							<span class="text-danger fw-bold" ng-if="od.orderStatus.status_name != 'Chờ xác nhận'">{{od.orderStatus.status_name}}</span>
@@ -45,7 +46,7 @@
 						<th>Username</th>
 						<th>Phonenumber</th>
 						<th>Address</th>
-						<th>CreateDate</th>
+						<th>Payment Method</th>
 						<th>Status</th>
 						<th>Action</th>
 					</tr>

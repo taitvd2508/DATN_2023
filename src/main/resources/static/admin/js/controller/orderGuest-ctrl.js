@@ -4,6 +4,9 @@ app.controller("orderGuest-ctrl", function($scope, $http){
 		$http.get("/rest/orderStatuss").then(resp => {
 			$scope.orderStatuss = resp.data; // lấy list orderStatus
 		})
+		$http.get("/rest/orderMethods").then(resp => {
+			$scope.orderMethods = resp.data; // lấy list orderStatus
+		})
 
 		$http.get("/rest/ordersGuestAdmin").then(resp => {
 			$scope.ordersGuest = resp.data; // lấy list orders

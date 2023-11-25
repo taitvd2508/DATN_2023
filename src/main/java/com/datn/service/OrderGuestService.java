@@ -2,7 +2,6 @@ package com.datn.service;
 
 import java.util.List;
 
-import com.datn.model.Order;
 import com.datn.model.OrderGuest;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -16,6 +15,8 @@ public interface OrderGuestService {
 	public List<OrderGuest> findByPhonenumberAndAddress(String phonenumber, String address);
 
 	public List<OrderGuest> findAll();
+	
+	public List<OrderGuest> findAllIdDESC();
 
 	public void create(OrderGuest orderGuest);
 

@@ -37,7 +37,15 @@
 				<div>Order Username</div>
 				<input ng-model="form.account.username" class="form-control" placeholder="Username" readonly>
 			</div>
-		</div>			
+		</div>	
+		<div class="row mb-2">
+			<div class="form-group col-sm-12">
+				<div>Payment Method</div>
+				<select ng-model="form.orderMethod.id" class="form-select">
+					<option disabled ng-repeat="om in orderMethods" ng-value="om.id">{{om.method_name}}</option>
+				</select>
+			</div>
+		</div>		
 	</div>
 	<div class="card-footer text-center">
 		<button ng-click="update()" ng-disabled="!form.id" class="btn btn-success">

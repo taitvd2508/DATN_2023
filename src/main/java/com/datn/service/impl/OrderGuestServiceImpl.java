@@ -1,6 +1,7 @@
 package com.datn.service.impl;
 
 import java.util.List;
+
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,11 @@ public class OrderGuestServiceImpl implements OrderGuestService {
 	@Override
 	public void delete(Long id) {
 		orderGuestDAO.deleteById(id);
+	}
+
+	@Override
+	public List<OrderGuest> findAllIdDESC() {
+		return orderGuestDAO.findAllIdDESC();
 	}
 	
 	

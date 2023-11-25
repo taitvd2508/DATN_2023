@@ -24,13 +24,19 @@
 			</div>
 		</div>
 		<div class="row mb-2">
-			<div class="form-group col-sm-12">
+			<div class="form-group col-sm-6">
 				<div>OrderStatus</div>
 				<select ng-model="form.orderStatus.id" ng-if="form.orderStatus.id == 'DH'" class="form-select">
 					<option ng-repeat="os in orderStatuss | orderBy : 'stt'" ng-value="os.id" ng-if="os.id == 'DH'">{{os.stt}} - {{os.status_name}}</option>
 				</select>
 				<select ng-model="form.orderStatus.id" ng-if="form.orderStatus.id != 'DH'" class="form-select">
 					<option ng-repeat="os in orderStatuss | orderBy : 'stt'" ng-value="os.id" ng-if="os.id != 'DH'">{{os.stt}} - {{os.status_name}}</option>
+				</select>
+			</div>
+			<div class="form-group col-sm-6">
+				<div>Payment Method</div>
+				<select ng-model="form.orderMethod.id" class="form-select">
+					<option disabled ng-repeat="om in orderMethods" ng-value="om.id">{{om.method_name}}</option>
 				</select>
 			</div>
 		</div>			
