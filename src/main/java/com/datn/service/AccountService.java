@@ -12,4 +12,6 @@ public interface AccountService {
 	List<Account> findAll();
 	
 	Account create(Account account);
+
+	Account resetPassword(String username, String email);
 }

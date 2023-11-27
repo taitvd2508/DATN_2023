@@ -13,4 +13,6 @@ public interface AccountDAO extends JpaRepository<Account, String>{
 	List<Account> getAdministrators();
 	
 	Account findByUsername(String username); // giành cho chức năng đăng nhập
+	
+	Account findByUsernameAndEmail(String username, String email); // giành cho chức năng resetpassword
 }

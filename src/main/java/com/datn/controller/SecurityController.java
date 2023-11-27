@@ -4,7 +4,9 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import com.datn.model.Authority;
 import com.datn.model.Role;
 import com.datn.service.AccountService;
 import com.datn.service.AuthorityService;
+import com.datn.service.MailerService;
 import com.datn.service.RoleService;
 
 @Controller
@@ -42,6 +45,10 @@ public class SecurityController {
 	RoleService roleService;
 	@Autowired
 	ServletContext context;
+	@Autowired
+	HttpServletRequest request;
+	@Autowired
+	MailerService mailer;
 	
 	@RequestMapping("/login")
 	public String loginForm(Model model) {
@@ -80,6 +87,7 @@ public class SecurityController {
 		return session.getAttribute("authentication");
 	}
 	
+	// REGISTER
 	@GetMapping("/register")
 	public String registerForm(Model model) {
 		return "security/register";
@@ -117,15 +125,18 @@ public class SecurityController {
 				}
 				File savedFile = new File(dir, photo.getOriginalFilename());
 				photo.transferTo(savedFile); // tạo ảnh trong folder
-				model.addAttribute("messR", "Created account successfully ! <a href='/login' style='fw-bold'>Login ?</a>");
+				mailer.sendEmail(account, "welcome"); // gửi mail
+				model.addAttribute("messR", "Tạo tài khoản thành công ! Chúng tôi đã gửi tên đăng nhập & mật khẩu vào email của bạn");
 				
 			}
 		} catch (Exception e) {
-			model.addAttribute("messR", "Created account failed ! \n" +e.getMessage());
+			model.addAttribute("messR", "Tạo tài khoản thất bại ! \n" +e.getMessage());
 		}
 		return "security/register";
 	}
 	
+	
+	// CHANGE PASSWORD
 	@GetMapping("/changePassword")
 	public String changePasswordForm() {
 		return "security/changePassowrd";
@@ -150,5 +161,57 @@ public class SecurityController {
 			model.addAttribute("messC", "Tài khoản không tồn tại! "+e.getMessage()); // nếu username không tồn tại thì thông báo...
 		}
 		return "security/changePassowrd";
+	}
+	
+	// PROFILE
+	@GetMapping("/profile")
+	public String profileform(Model model) {
+		model.addAttribute("accountLogin", accountService.findByUsername(request.getRemoteUser()));
+		return "security/profile";
+	}
+	
+	@PostMapping("/editProfile")
+	public String profile(Model model, @RequestParam("photo") MultipartFile photo,
+		@RequestParam("fullname") String fullname, @RequestParam("email") String email, @RequestParam("username") String username) {
+		try {
+			Account account = accountService.findByUsername(username);
+			account.setFullname(fullname);
+			account.setEmail(email);
+			if(photo.getOriginalFilename().equals("")) {
+				account.setPhoto(account.getPhoto());
+			}else {
+				account.setPhoto(photo.getOriginalFilename());
+			}
+			accountService.create(account);
+			File dir = new File(CURRENT_FOLDER.resolve(srcPath).resolve(mainPath).resolve(resourcePath).resolve(staticPath).resolve(imagePath).resolve(avtPath).toString());
+			if(!dir.exists()) {
+				dir.mkdirs();
+			}
+			File savedFile = new File(dir, photo.getOriginalFilename());
+			photo.transferTo(savedFile); // tạo ảnh trong folder
+			model.addAttribute("accountLogin", accountService.findByUsername(username));
+		} catch (Exception e) {
+			model.addAttribute("messP", e.getMessage());
+		}
+		return "redirect:/profile";
+	}
+	
+	
+	// FORGOT PASSWORD - SEND EMAIL
+	@GetMapping("/forgotPassword")
+	public String forgotForm(Model model) {
+		return "security/forgotPassword";
+	}
+	
+	@PostMapping("/forgotPassword")
+	public String forgot(Model model, @RequestParam("username") String username, @RequestParam("email") String email) throws MessagingException {
+		Account account = accountService.resetPassword(username, email); // đã xử lí randompass
+		if(account != null) { // nếu tài khoản có username & email đó có tồn tại
+			mailer.sendEmail(account, "forgot_Pass"); // forgot_pass (tên đặt bên mailerserviceimpl)
+			model.addAttribute("messF", "Hãy Kiểm Tra Email, Chúng Tôi Đã Gửi Mật Khẩu Mới !");
+		}else {
+			model.addAttribute("messF", "Username & Email Không Hợp Lệ !");
+		}
+		return "security/forgotPassword";
 	}
 }
