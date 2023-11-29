@@ -6,4 +6,8 @@ import com.datn.model.ProductModel;
 
 public interface ProductModelService {
 	List<ProductModel> findAllBrandLaptop(String modelName);
+
+	List<ProductModel> findAll();
+
+	
 }
