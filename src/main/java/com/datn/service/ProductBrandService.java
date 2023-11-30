@@ -8,4 +8,6 @@ public interface ProductBrandService {
 	List<ProductBrand> findAllBrandLaptop();
 	List<ProductBrand> findAllBrandLinhKien();
 	List<ProductBrand> findAllBrandManHinh();
+	List<ProductBrand> findAll();
+	
 }

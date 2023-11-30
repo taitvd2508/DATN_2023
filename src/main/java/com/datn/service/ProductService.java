@@ -16,4 +16,7 @@ public interface ProductService {
 	Page<Product> search(String keywords1, String keywords2, String keywords3, String keywords4, String typeName, Pageable pageable);
 	Page<Product> filterPrice(Double minPrice, Double maxPrice, String typeName, Pageable pageable);
 	Product findTop1Price();
+	Product create(Product product);
+	Product update(Product product);
+	void delete(Integer id);
 }

@@ -112,3 +112,38 @@ button {
     top: var(--topNavbarHeight);
   }
 }
+
+.avatar-preview {
+	width: 100%;
+	padding-bottom: 100%; position : relative;
+	border: 1px solid #eeeeee;
+	border-radius: 10px;
+	position: relative;
+	overflow: hidden;
+}
+
+.avatar-preview img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Đảm bảo ảnh điền hết phần tử */
+}
+
+.avatar-preview .edit-avatar {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+.avatar-preview .edit-avatar input {
+	opacity: 0;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+}
+
+.indicators-custom{
+	margin-top:100%;
+}

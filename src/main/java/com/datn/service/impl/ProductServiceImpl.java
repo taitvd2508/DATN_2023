@@ -63,4 +63,22 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.findTop1Price();
 	}
 
+	@Override
+	public Product create(Product product) {
+		// TODO Auto-generated method stub
+		return productDAO.save(product);
+	}
+
+	@Override
+	public Product update(Product product) {
+		
+		return productDAO.save(product);
+	}
+
+	@Override
+	public void delete(Integer id) {
+		// TODO Auto-generated method stub
+		productDAO.deleteById(id);
+	}
+
 }
