@@ -38,5 +38,4 @@ public class ProductBrandServiceImpl implements ProductBrandService {
 		// TODO Auto-generated method stub
 		return productBrandDAO.findAll();
 	}
-
 }

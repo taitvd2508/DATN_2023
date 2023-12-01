@@ -9,5 +9,4 @@ public interface ProductBrandService {
 	List<ProductBrand> findAllBrandLinhKien();
 	List<ProductBrand> findAllBrandManHinh();
 	List<ProductBrand> findAll();
-	
 }

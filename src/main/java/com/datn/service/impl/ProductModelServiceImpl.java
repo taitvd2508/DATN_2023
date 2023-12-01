@@ -19,7 +19,7 @@ public class ProductModelServiceImpl implements ProductModelService {
 		// TODO Auto-generated method stub
 		return productModelDAO.findAllBrandLaptop(modelName);
 	}
-
+	
 	@Override
 	public List<ProductModel> findAll() {
 		// TODO Auto-generated method stub

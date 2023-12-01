@@ -62,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productDAO.findTop1Price();
 	}
-
+	
 	@Override
 	public Product create(Product product) {
 		// TODO Auto-generated method stub
