@@ -16,6 +16,7 @@ app.controller("order-ctrl", function($scope, $http){
 			$scope.orders.forEach(order => {
 				order.createDate = new Date(order.createDate)
 			})
+		
 		});
 		$scope.reset();
 	}
@@ -30,6 +31,13 @@ app.controller("order-ctrl", function($scope, $http){
 	$scope.edit = function(oder){
 		$scope.form = angular.copy(oder);
 		$(".nav-tabs a:eq(0)").tab("show");
+	}
+	
+	$scope.details = function(order) {
+		$http.get(`/rest/ordersAdmin/detail/${order.id}`).then(resp => {
+			$scope.orderDetails = resp.data;
+		})
+		$(".nav-tabs a:eq(2)").tab("show");
 	}
 
 	$scope.update = function(){

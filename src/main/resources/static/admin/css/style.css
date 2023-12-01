@@ -147,3 +147,26 @@ button {
 .indicators-custom{
 	margin-top:100%;
 }
+
+.noPadding{
+	padding: 0 0 0 10px;
+    line-height: 2.5em;
+}
+
+.imgHide img{
+	position: absolute;
+	left: 300px;
+    width: 150px;
+    height: 0;
+    border-radius: 10px;
+    transition-duration: .2s;
+}
+
+.imgHide p:hover {
+	color: red;
+	font-weight: bold;
+}
+
+.imgHide p:hover img {
+    height: 150px;
+}

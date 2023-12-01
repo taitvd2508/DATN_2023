@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datn.model.Order;
+import com.datn.model.OrderDetail;
 import com.datn.model.OrderStatus;
+import com.datn.service.OrderDetailService;
 import com.datn.service.OrderService;
 
 @CrossOrigin("*")
@@ -23,6 +25,8 @@ import com.datn.service.OrderService;
 public class Order_adminRestController {
 	@Autowired
 	OrderService orderService;
+	@Autowired
+	OrderDetailService orderDetailService;
 	
 	// ## ADMIN ## //
 	@GetMapping
@@ -33,6 +37,11 @@ public class Order_adminRestController {
 	@GetMapping("{id}")
 	public Order getOne(@PathVariable("id") Long id) {
 		return orderService.findById(id);
+	}
+	
+	@GetMapping("detail/{id}")
+	public List<OrderDetail> getDetail(@PathVariable("id") Long id) {
+		return orderDetailService.findByOrderID(id);
 	}
 	
 	@PostMapping

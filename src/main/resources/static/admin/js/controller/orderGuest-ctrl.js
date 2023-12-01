@@ -29,6 +29,14 @@ app.controller("orderGuest-ctrl", function($scope, $http){
 		$(".nav-tabs a:eq(0)").tab("show");
 	}
 	
+	$scope.details = function(orderGuest) {
+		$http.get(`/rest/ordersGuestAdmin/detail/${orderGuest.id}`).then(resp => {
+			$scope.orderDetailsGuest = resp.data;
+		})
+		console.log($scope.orderDetailsGuest)
+		$(".nav-tabs a:eq(2)").tab("show");
+	}
+	
 	$scope.create = function(){
 		var orderGuest = angular.copy($scope.form);
 		$http.post(`/rest/ordersGuestAdmin`, orderGuest).then(resp => {

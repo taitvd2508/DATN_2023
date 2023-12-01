@@ -75,9 +75,10 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 	$scope.payments = 1;
 	$scope.initialize = function() {
 		// load brands
-		$http.get(`/rest/orderMethod`).then(resp => {
+		$http.get(`/rest/orderMethods`).then(resp => {
 			$scope.items = resp.data;
 		});
+		console.log($scope.items)
 		$scope.payments = 1;
 	};
 	

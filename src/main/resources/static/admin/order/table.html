@@ -1,6 +1,6 @@
 <div class="card">
 	<div class="card-header">
-		<span><i class="bi bi-table me-2"></i></span> Data Order
+		<span><i class="bi bi-table me-1"></i></span> Data Order
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
@@ -17,7 +17,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="od in pager.orders" scope="row">
+					<tr ng-repeat="od in pager.orders" scope="row">	
 						<td class="align-middle">{{od.id}}</td>
 						<td class="align-middle">{{od.account.username}}</td>
 						<td class="align-middle">{{od.phonenumber}}</td>
@@ -35,6 +35,9 @@
 							</a>
 							<a ng-click="delete(od)" href="" class="btn btn-danger">
 								<i class="fas fa-trash"></i>
+							</a>
+							<a ng-click="details(od)" href="" class="btn btn-success">
+								<i class="bi bi-eye"></i>
 							</a>
 					</div>
 						</td>
