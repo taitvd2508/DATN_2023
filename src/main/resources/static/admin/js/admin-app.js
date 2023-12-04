@@ -17,10 +17,6 @@ app.config(function ($routeProvider) {
 	  templateUrl: "/admin/order/index.html",
 	  controller: "order-ctrl"
 	})
-	.when("/orderGuest", {
-	  templateUrl: "/admin/orderGuest/index.html",
-	  controller: "orderGuest-ctrl"
-	})
     .otherwise({
       templateUrl: "/admin/home/index.html",
       controller: "home-ctrl"

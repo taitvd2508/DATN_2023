@@ -10,7 +10,7 @@
 						<th>ID</th>
 						<th>Username</th>
 						<th>Phonenumber</th>
-						<th style="width: 250px">Address</th>
+						<th>Address</th>
 						<th>Payment Method</th>
 						<th>Status</th>
 						<th>Action</th>
@@ -19,9 +19,9 @@
 				<tbody>
 					<tr ng-repeat="od in pager.orders" scope="row">	
 						<td class="align-middle">{{od.id}}</td>
-						<td class="align-middle">{{od.account.username}}</td>
+						<td class="align-middle"><p class="my-auto" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 1; display: -webkit-box; -webkit-box-orient: vertical; width:150px;">{{od.account.username}}</p></td>
 						<td class="align-middle">{{od.phonenumber}}</td>
-						<td class="align-middle">{{od.address}}</td>	
+						<td class="align-middle"><p class="my-auto" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 1; display: -webkit-box; -webkit-box-orient: vertical; width:150px">{{od.address}}</p></td>	
 						<td class="align-middle" ng-if="od.orderMethod.id == 1">Tiền mặt</td>
 						<td class="align-middle" ng-if="od.orderMethod.id == 2">Paypal</td>
 						<td class="align-middle">
