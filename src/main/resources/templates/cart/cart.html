@@ -54,12 +54,8 @@
 					<ul class="list-group">
 						<li class="list-group-item py-3 fw-bold">Total: <span>{{cart.amount | number}}<sup>VNĐ</sup></span></li>
 					</ul>
-					<th:block th:if="${#request.remoteUser}"> <!-- Nếu đã đăng nhập -->
-						<a th:href="@{|/order/checkout|}" class="btn btn-outline-dark fw-bold btn-lg" style="width:100%;">Mua Hàng</a>
-					</th:block>
-					<th:block th:unless="${#request.remoteUser}"> <!-- Nếu chưa đăng nhập -->
-						<a th:href="@{|/orderGuest/checkout|}" class="btn btn-outline-dark fw-bold btn-lg" style="width:100%;">Mua Hàng</a>
-					</th:block>
+					<a th:href="@{|/order/checkout|}" class="btn btn-outline-dark fw-bold btn-lg" style="width:100%;">Mua Hàng</a>
+					
 				</div>
 		</div>
 	</div>

@@ -1,6 +1,7 @@
 package com.datn.model;
 
 import java.io.Serializable;
+
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -28,7 +29,4 @@ public class OrderMethod implements Serializable{
 	@OneToMany(mappedBy = "orderMethod")
 	List<Order> orders;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "orderMethod")
-	List<OrderGuest> orderGuests;
 }

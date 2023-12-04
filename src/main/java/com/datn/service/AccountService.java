@@ -3,6 +3,7 @@ package com.datn.service;
 import java.util.List;
 
 import com.datn.model.Account;
+import com.fasterxml.jackson.databind.JsonNode;
 
 public interface AccountService {
 	Account findById(String username);
@@ -12,6 +13,8 @@ public interface AccountService {
 	List<Account> findAll();
 	
 	Account create(Account account);
+	
+	Account autoCreate(Account account);
 
 	Account resetPassword(String username, String email);
 }

@@ -88,6 +88,7 @@ public class MailerServiceImpl implements MailerService {
 
 	private static final String EMAIL_WELCOME_SUBJECT = "Welcome to N7.Store";
 	private static final String EMAIL_FORGOT_PASSWORD = "N7.Store - Send New Password";
+	private static final String THANKS_FOR_FIRSTPURCHASE = "Thanks For Your First Purchase at N7.Store";
 
 	@Override
 	public void sendEmail(Account recipient, String type) throws MessagingException {
@@ -103,7 +104,14 @@ public class MailerServiceImpl implements MailerService {
 				subject = EMAIL_FORGOT_PASSWORD;
 				content = "Dear: " + recipient.getFullname() + ", Your new password here: " + recipient.getPassword()
 						+"<hr> Change Password: http://localhost:8080/changePassword";
-			} else {
+			} else if (type.contains("first_Purchase")) {  // lần đầu mua hàng
+				subject = THANKS_FOR_FIRSTPURCHASE;
+				content = "Dear: " +recipient.getFullname() + ", Thanks for your first purchase at N7.Store <br>"
+						+"Our system has automatically created an account for you to make shopping easier"
+						+"<hr> Username: "+recipient.getUsername() + ", Password: " +recipient.getPassword()
+						+"<br> Change Password: http://localhost:8080/changePassword"
+						+"<br> Change Profile: http://localhost:8080/profile";
+			}else {
 				subject = "N7.Store";
 				content = "This is the error email. please don't mind it !";
 			}

@@ -1,5 +1,7 @@
 package com.datn.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,10 +38,28 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/order/list")
-	public String detail(Model model) {
+	public String list(Model model) {
 		String username = request.getRemoteUser();
 		model.addAttribute("orders", orderService.findByUsername(username));
 		return "order/list";
+	}
+	
+	@RequestMapping("/order/list_check")
+	public String listcheck(Model model) {
+		return "order/list_nologin";
+	}
+	
+	@RequestMapping("/order/listCheck")
+	public String list(Model model, @RequestParam("username") String username) {
+		model.addAttribute("username", username);
+		List<Order> orders = orderService.findByUsername(username);
+		model.addAttribute("orders", orders);
+		if(accountService.findByUsername(username) == null) { // KO CÓ USERNAME NÀY
+			model.addAttribute("mess", "Username không tồn tai !");
+		}else if(orders.size() == 0) {
+			model.addAttribute("mess", "Chưa có đơn hàng nào !");
+		}
+		return "order/list_nologin";
 	}
 	
 	@RequestMapping("/order/cancel/{id}")

@@ -21,8 +21,14 @@
 		</div>
 		<div class="FormDeliveryAddress">
 			<div class="form-group mb-3">
+				<th:block th:if="${#request.remoteUser}">
 				<label>Username:</label>
-				<input id="username" th:value="${#request.remoteUser}" type="text" class="form-control" readonly/> <!-- USERNAME ĐỂ TRUYỀN QUA BÊN SHOPPING-CART-APP -->
+				<input id="username" name="username_email" th:value="${#request.remoteUser}" type="text" class="form-control" readonly/> <!-- USERNAME ĐỂ TRUYỀN QUA BÊN SHOPPING-CART-APP -->
+				</th:block>
+				<th:block th:unless="${#request.remoteUser}">
+				<label>Email:</label>
+				<input id="username" name="username_email" ng-model="order.account.username" type="email" class="form-control" placeholder="Email ? (Required)" required/> <!-- USERNAME ĐỂ TRUYỀN QUA BÊN SHOPPING-CART-APP -->
+				</th:block>
 			</div>
 			<div class="form-group mb-3">
 				<!-- LOAD SELECTBOX METHOD PAYMENT -->

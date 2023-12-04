@@ -25,8 +25,5 @@ public class OrderStatus implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "orderStatus")
 	List<Order> orders;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "orderStatus")
-	List<OrderGuest> orderGuests;
+
 }
