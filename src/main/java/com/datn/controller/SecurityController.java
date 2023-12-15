@@ -1,6 +1,7 @@
 package com.datn.controller;
 
 import java.io.File;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -80,12 +82,21 @@ public class SecurityController {
 		return "security/login";
 	}
 	
+	// OAuth2
+		
+	@RequestMapping("/oauth2/login/success")
+	public String success(OAuth2AuthenticationToken oauth2) { // thông tin đăng nhập mxh được lưu vào hết trong oauth2
+		accountService.loginFromOAuth2(oauth2);
+		return "redirect:/home";
+	}
+	
 	@CrossOrigin("*")
 	@ResponseBody
 	@RequestMapping("/rest/security/authentication")
 	public Object getAuthentication(HttpSession session) {
 		return session.getAttribute("authentication");
 	}
+	
 	
 	// REGISTER
 	@GetMapping("/register")

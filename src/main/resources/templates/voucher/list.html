@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/layout/index.html :: dynamic(~{::main})}">
+<!--  thay toàn bộ nd trong tag main vào dynamic(main) ở bên layout/index -->
+<body>
+	<main>
+		<!-- Start Title -->
+		<div class="container-fluid pt-3 pb-1" style="background-color: rgb(233, 238, 245) !important;">
+			<div class="text-center">
+				<h1 class="fw-bold h2 text-dark">Danh sách các Voucher !</h1>
+			</div>
+		</div>
+		<!-- Close Title -->
+
+		<div class="container my-5">
+			<table class="table table-hover border shadow">
+				<thead>
+					<tr>
+						<th style="padding-left: 8px;">NO.</th>
+						<th>VOUCHER ID</th>
+						<th>DISCOUNT(%)</th>
+						<th>APPLY PRICE</th>
+						<th>DESCRIBE VOUCHER</th>
+						<th>END DATE</th>
+						<th style="padding-right: 8px;">APPLY MODEL</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="v,i : ${vouchers}" class="align-middle">
+						<td style="padding-left: 8px;">[(${i.index+1})]</td>
+						<td>[(${v.id})]</td>
+						<td>[(${v.discount})]%</td>
+						<td>[(${#numbers.formatDecimal(v.priceapply, 3,'POINT', 0, 'COMMA')})]</td>
+						<td>[(${v.descvoucher})]</td>
+						<td>[(${v.endDate})]</td>
+						<td><a th:href="@{|/shop/laptop?modelName=${v.productModel.modelname}|}">[(${v.productModel.modelname})]</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</main>
+</body>
+</html>

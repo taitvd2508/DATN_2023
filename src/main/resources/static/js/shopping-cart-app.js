@@ -1,5 +1,6 @@
 const app = angular.module("shopping-cart-app", []);
 app.controller("shopping-cart-ctrl", function($scope, $http){
+
 	$scope.cart = { // co tac dung trong toan bo giao dien
 		items:[],
 		// Thêm sản phẩm vào giỏ hàng
@@ -7,11 +8,13 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 			var item = this.items.find(item => item.id == id); // kiểm tra xem trong items có sản phẩm mới thêm vào khoong
 			if(item){ // nếu có thì chỉ tăng số lượng
 				item.qty++;
+				item.product_price2 = item.product_price; // price2 sẽ để giá sau khi giảm (nếu có mã giảm)
 				this.saveToLocalStorage();
 			}else{ // nếu chưa có thì tải sp từ trên server về thông qua rest
 				$http.get(`/rest/shop/${id}`).then(resp => {
 					alert('Đã thêm sản phẩm vào giỏ hàng !');
 					resp.data.qty = 1; // sau khi tải về gán sl = 1;
+					resp.data.product_price2 = resp.data.product_price; // price2 sẽ để giá sau khi giảm (nếu có mã giảm)
 					this.items.push(resp.data); // thêm vào ds giỏ hàng (items)
 					this.saveToLocalStorage(); // lưu vào local
 				})
@@ -39,8 +42,9 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 		
 		// Tính tổng thành tiền của các mặt hàng trong giỏ hàng
 		get amount(){
-			return this.items.map(item => item.qty * item.product_price) // dùng map để lấy qty * price ra giá
+			return this.items.map(item => item.qty * item.product_price2) // dùng map để lấy qty * price2 ra giá (SAU KHI GIẢM (NẾU CÓ VOUCHER GIẢM GIÁ))
 							 .reduce((total, qty) => total += qty, 0);
+					
 		},
 		
 		// Hàm lưu vào local
@@ -77,8 +81,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 		// load brands
 		$http.get(`/rest/orderMethods`).then(resp => {
 			$scope.items = resp.data;
-		});
-		console.log($scope.items)
+		}),
 		$scope.payments = 1;
 	};
 	
@@ -87,7 +90,44 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 		pay = angular.copy($scope.payments);
 	}
 	
-	$scope.initialize(); // load pt thanh toán
+	$scope.applysuccess = 0; // = 0: chưa áp mã giảm giá
+	$scope.ApplyVoucher = {
+		vouchers:[],
+		apply(){
+			$http.get(`/rest/shop/vouchers`).then(resp => {
+				this.vouchers = resp.data; // lấy list vouchers
+				var idVoucher = $("#voucher").val();
+				var voucherFind = this.vouchers.find(vc => vc.id == idVoucher);
+				if(idVoucher.length == 0){ // mã rỗng
+					alert('Chưa nhập voucher !');
+					$scope.applysuccess = 0;
+				}else if(voucherFind == null){ // mã không tồn tại
+					alert('Voucher không tồn tại !');
+					$scope.applysuccess = 0;
+				}else{ // các trường hợp còn lại
+					$http.get(`/rest/shop/voucher/${idVoucher}`).then(resp => {
+						this.voucher = resp.data;
+						this.products = $scope.cart.items.filter(item => item.productModel.modelname == this.voucher.productModel.modelname && item.product_price >= this.voucher.priceapply); // loc sp co productmodelname trung voi productmodelname cua voucher && gia sp lon hon gia voucher
+						console.log(this.products);
+						if(this.products.length > 0){ // mang > 0 (tuc la co gia tri trong mang)
+							alert('Áp voucher giảm giá thành công !');
+							$scope.applysuccess = 1;
+							if($scope.applysuccess == 1){
+								for(var i = 0; i < this.products.length; i++){
+									this.products[i].product_price2 = this.products[i].product_price - (this.products[i].product_price*(this.voucher.discount/100));
+								}	
+							}
+						}else{
+							alert('Voucher không áp dụng được cho các sản phẩm mà bạn mua !');
+							$scope.applysuccess = 0;
+						}
+					});
+				}	
+			});
+		}
+	}
+	
+	$scope.initialize(); // load pt thanh toán, vouchers
 	$scope.cart.loadFromLocalStorage(); // tải lại toàn bộ mặt hàng trong local khi ứng dụng khởi tạo
 	
 	$scope.order = {
@@ -101,7 +141,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 			return $scope.cart.items.map(item => {
 				return {
 					product:{id: item.id},
-					price: item.product_price,
+					price: item.product_price2,
 					quantity: item.qty
 				}
 			});
@@ -137,7 +177,7 @@ app.controller("shopping-cart-ctrl", function($scope, $http){
 			return $scope.cart.items.map(item => {
 				return {
 					product:{id: item.id},
-					price: item.product_price,
+					price: item.product_price2,
 					quantity: item.qty
 				}
 			});

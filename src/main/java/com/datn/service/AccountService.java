@@ -2,8 +2,10 @@ package com.datn.service;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+
 import com.datn.model.Account;
-import com.fasterxml.jackson.databind.JsonNode;
 
 public interface AccountService {
 	Account findById(String username);
@@ -17,4 +19,8 @@ public interface AccountService {
 	Account autoCreate(Account account);
 
 	Account resetPassword(String username, String email);
+	
+	UserDetails loadUserByUsername(String username);
+	
+	void loginFromOAuth2(OAuth2AuthenticationToken oauth2);
 }

@@ -75,6 +75,7 @@ public class OrderController {
 		orderCancel.setPhonenumber(order.getPhonenumber());
 		orderCancel.setAddress(order.getAddress());
 		orderCancel.setOrderStatus(orderStatus);
+		orderCancel.setOrderMethod(order.getOrderMethod());
 		orderCancel.setAccount(accountService.findById(request.getRemoteUser()));
 		orderService.updateSTT(orderCancel);
 		return "redirect:/order/list";

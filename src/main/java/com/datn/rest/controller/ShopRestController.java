@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datn.model.Product;
+import com.datn.model.Voucher;
 import com.datn.service.ProductService;
+import com.datn.service.VoucherService;
 
 @CrossOrigin("*")
 @RestController
@@ -22,10 +24,22 @@ import com.datn.service.ProductService;
 public class ShopRestController {
 	@Autowired
 	ProductService productService;
+	@Autowired
+	VoucherService voucherService;
 	
 	@GetMapping()
 	public List<Product> getAll(){
 		return productService.findAll();
+	}
+	
+	@GetMapping("/vouchers")
+	public List<Voucher> getAllV() {
+		return voucherService.findAll();
+	}
+	
+	@GetMapping("/voucher/{idV}")
+	public Voucher getVoucher(@PathVariable("idV") String idV) {
+		return voucherService.findByIdV(idV);
 	}
 	
 	@GetMapping("{id}") // get theo id để bỏ sp vào giỏ hàng

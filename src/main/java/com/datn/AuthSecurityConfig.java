@@ -56,6 +56,14 @@ public class AuthSecurityConfig extends WebSecurityConfigurerAdapter { // file c
 			.usernameParameter("username") // tên của thẻ input bên html
 			.passwordParameter("password"); // tên của thẻ input passowrd bên html
 		
+		// Đăng nhập bằng MXH - OAuth2
+		httpSecurity.oauth2Login()
+			.loginPage("/auth/login/form")
+			.defaultSuccessUrl("/oauth2/login/success", true)
+			.failureUrl("/auth/login/error")
+			.authorizationEndpoint()
+			.baseUri("/oauth2/authorization"); // để khai vào thẻ đăng nhập <a></a>
+				
 		httpSecurity.rememberMe()
 			.tokenValiditySeconds(86400) // lưu 86400 giây
 			.rememberMeParameter("remember"); // tên của thẻ input checkbox bên html (mặc định nếu ko đặt là remember-me)
