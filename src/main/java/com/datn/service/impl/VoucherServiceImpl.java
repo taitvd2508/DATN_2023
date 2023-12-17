@@ -24,4 +24,20 @@ public class VoucherServiceImpl implements VoucherService{
 		return voucherDAO.findByIdV(idV);
 	}
 
+	@Override
+	public void create(Voucher voucher) {
+		voucherDAO.save(voucher);
+		
+	}
+
+	@Override
+	public Voucher update(Voucher voucher) {
+		return voucherDAO.save(voucher);
+	}
+
+	@Override
+	public void delete(String idV) {
+		voucherDAO.deleteById(idV);	
+	}
+
 }

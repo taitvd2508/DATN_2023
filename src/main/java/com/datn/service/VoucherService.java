@@ -8,4 +8,11 @@ public interface VoucherService {
 	List<Voucher> findAll();
 
 	Voucher findByIdV(String idV);
+
+	void create(Voucher voucher);
+
+	Voucher update(Voucher voucher);
+
+	void delete(String idV);
+
 }

@@ -42,6 +42,24 @@ public class ShopRestController {
 		return voucherService.findByIdV(idV);
 	}
 	
+	@PostMapping("/voucher")
+	public Voucher post(@RequestBody Voucher voucher) {
+		voucherService.create(voucher);
+		return voucher;
+	}
+	
+	@PutMapping("/voucher/{id}")
+	public Voucher put(@PathVariable("id") String idV, @RequestBody Voucher voucher) {
+		return voucherService.update(voucher);
+	}
+	
+	@DeleteMapping("/voucher/{id}")
+	public void delete(@PathVariable("id") String idV) {
+		voucherService.delete(idV);
+	}
+	
+	// VOUCHER
+	
 	@GetMapping("{id}") // get theo id để bỏ sp vào giỏ hàng
 	public Product getOne(@PathVariable("id") Integer id) {
 		return productService.findById(id); // lây sp theo id

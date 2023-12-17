@@ -1,0 +1,72 @@
+<div class="card">
+	<div class="card-header">
+		<span><i class="bi bi-table me-1"></i></span> Data Vouchers
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table id="example" class="table table-striped data-table" style="width: 100%">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Discount</th>
+						<th>Price Apply</th>
+						<th>Describe Voucher</th>
+						<th>End Date</th>
+						<th>Model Apply</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="vc in pager.vouchers" scope="row">	
+						<td class="align-middle" id="voucherid">{{vc.id}}</td>
+						<td class="align-middle">{{vc.discount}}%</td>
+						<td class="align-middle">{{vc.priceapply | number}}<sup>VNĐ</sup></td>	
+						<td class="align-middle"><p class="my-auto" style="overflow: hidden; text-overflow: ellipsis; -webkit-line-clamp: 1; display: -webkit-box; -webkit-box-orient: vertical; width:200px;">{{vc.descvoucher}}</p></td>
+						<td class="align-middle">{{vc.endDate | date:'dd-MM-yyyy'}}</td>
+						<td class="align-middle">{{vc.productModel.modelname}}</td>
+						<td class="align-middle">
+							<div class="btn-group btn-group-xs">
+							<a ng-click="edit(vc)" href="" class="btn btn-warning">
+								<i class="fas fa-edit"></i>
+							</a>
+							<a ng-click="delete(vc)" href="" class="btn btn-danger">
+								<i class="fas fa-trash"></i>
+							</a>
+					</div>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th>ID</th>
+						<th>Discount</th>
+						<th>Price Apply</th>
+						<th>Describe Voucher</th>
+						<th>End Date</th>
+						<th>Model Apply</th>
+						<th>Action</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	<div class="card-footer text-end">
+		<button ng-click="pager.first()" class="btn btn-danger">
+			<i class="fas fa-angle-double-left"></i>
+		</button>
+		<button ng-click="pager.prev()" class="btn btn-primary me-1">
+			<i class="fas fa-angle-left"></i>
+		</button>
+		<button class="btn btn-success me-1" ng-repeat="i in pager.array track by $index" ng-click="pager.gotoPage($index)">
+			<b>{{$index + 1}}</b>
+		</button>
+		{{pager.a}}
+		<button ng-click="pager.next()" class="btn btn-primary">
+			<i class="fas fa-angle-right"></i>
+		</button>
+		<button ng-click="pager.last()" class="btn btn-danger">
+			<i class="fas fa-angle-double-right"></i>
+		</button>
+		
+	</div>
+</div>
